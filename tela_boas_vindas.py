@@ -8,37 +8,43 @@ def limpar_tela():
 def tela_boas_vindas():
     limpar_tela()
 
-    titulo_ascii = Fore.GREEN + r"""                                                                                            
-@@@@@@@    @@@@@@    @@@@@@    @@@@@@      @@@  @@@  @@@  @@@  @@@  @@@@@@@    @@@@@@    @@@@@@   
-@@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@      @@@  @@@  @@@  @@@@ @@@  @@@@@@@@  @@@@@@@@  @@@@@@@   
-@@!  @@@  @@!  @@@  @@!  @@@  !@@          @@!  @@@  @@!  @@!@!@@@  @@!  @@@  @@!  @@@  !@@       
-!@   @!@  !@!  @!@  !@!  @!@  !@!          !@!  @!@  !@!  !@!!@!@!  !@!  @!@  !@!  @!@  !@!       
-@!@!@!@   @!@  !@!  @!@!@!@!  !!@@!!       @!@  !@!  !!@  @!@ !!@!  @!@  !@!  @!@!@!@!  !!@@!!    
-!!!@!!!!  !@!  !!!  !!!@!!!!   !!@!!!      !@!  !!!  !!!  !@!  !!!  !@!  !!!  !!!@!!!!   !!@!!!   
-!!:  !!!  !!:  !!!  !!:  !!!       !:!     :!:  !!:  !!:  !!:  !!!  !!:  !!!  !!:  !!!       !:!  
-:!:  !:!  :!:  !:!  :!:  !:!      !:!       ::!!:!   :!:  :!:  !:!  :!:  !:!  :!:  !:!      !:!   
- :: ::::  ::::: ::  ::   :::  :::: ::        ::::     ::   ::   ::   :::: ::  ::   :::  :::: ::   
-:: : ::    : :  :    :   : :  :: : :          :      :    ::    :   :: :  :    :   : :  :: : :                                                                                                      
+    titulo_ascii = Fore.GREEN + Style.BRIGHT +"""                                                                                            
+______                      _   _  _             _                             │
+| ___ \                    | | | |(_)           | |                            │      Aplicação para desenvolvimento sustentável.
+| |_/ /  ___    __ _  ___  | | | | _  _ __    __| |  __ _  ___                 │      Análise de dados e mentoria pra uma melhor
+| ___ \ / _ \  / _` |/ __| | | | || || '_ \  / _` | / _` |/ __|                │      sustentabilidade e uma melhor rotina pessoal.
+| |_/ /| (_) || (_| |\__ \ \ \_/ /| || | | || (_| || (_| |\__ \                │ 
+\____/  \___/  \__,_||___/  \___/ |_||_| |_| \__,_| \__,_||___/                │      Desenvolvido por:
+                _   _         _      _  _    _____                             │      Alinne Monteiro de Melo
+               | | | |       | |    (_)| |  |  __ \                            │      Alycia dos Santos Bond
+  __ _   ___   | |_| |  __ _ | |__   _ | |_ | |  \/ _ __  ___   ___  _ __      │      Pedro Henrique Medeiros
+ / _` | / _ \  |  _  | / _` || '_ \ | || __|| | __ | '__|/ _ \ / _ \| '_ \     │      Rafael Antônio Candian 
+| (_| || (_) | | | | || (_| || |_) || || |_ | |_\ \| |  |  __/|  __/| | | |    │
+ \__,_| \___/  \_| |_/ \__,_||_.__/ |_| \__| \____/|_|   \___| \___||_| |_|    │      Pontifícia Universidade Católica de Campinas
+                                                                               │
 """
 
-    menu_lateral = Fore.WHITE + """
- ┌────────────────────────────────────────────────┐
- │ Aplicação para desenvolvimento sustentável.    │
- │ Análise de dados e mentoria pra uma melhor     │
- │ sustentabilidade e uma melhor rotina pessoal   │
- └────────────────────────────────────────────────┘
+    menu_lateral = Fore.YELLOW + """
+ ┌────────────────────────────────────────────────────────────────────────┐
+ │ Para acessar ao sistema, selecione abaixo uma das opções disponíveis.  │
+ │ Com as próximas telas a interação é a mesma, fique livre e bom uso!    │
+ └────────────────────────────────────────────────────────────────────────┘
 """
 
-    opcoes = Fore.YELLOW + Style.BRIGHT + """
- [1] Login
- [2] Cadastrar
- [3] Sair
+    opcoes = Fore.CYAN + Style.BRIGHT + """
+┌───────────────┐
+│ Opções:       │
+│               │
+│ [1] Login     │
+│ [2] Cadastrar │
+│ [3] Sair      │
+└───────────────┘
 """
 
-    print(titulo_ascii + menu_lateral + opcoes)
+    print(f"{titulo_ascii}{menu_lateral}" + opcoes)
 
     while True:
-        opcao = input(Fore.CYAN + "\nEscolha uma opção: ")
+        opcao = input(Fore.WHITE + Style.BRIGHT + "Digite a opção escolhida: ")
         if opcao == "1":
             from login import login
             login()
@@ -51,4 +57,4 @@ def tela_boas_vindas():
             print(Fore.GREEN + "Até logo!")
             break
         else:
-            print(Fore.RED + "❌ Opção inválida. Tente novamente.")
+            print(Fore.RED + "Opção inválida. Tente novamente.")

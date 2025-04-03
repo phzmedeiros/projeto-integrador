@@ -7,7 +7,6 @@ def limpar_tela():
 
 def tela_boas_vindas():
     limpar_tela()
-
     titulo_ascii = Fore.GREEN + Style.BRIGHT +"""                                                                                            
 ______                      _   _  _             _                             │
 | ___ \                    | | | |(_)           | |                            │      Aplicação para desenvolvimento sustentável.
@@ -16,33 +15,30 @@ ______                      _   _  _             _                             �
 | |_/ /| (_) || (_| |\__ \ \ \_/ /| || | | || (_| || (_| |\__ \                │ 
 \____/  \___/  \__,_||___/  \___/ |_||_| |_| \__,_| \__,_||___/                │      Desenvolvido por:
                 _   _         _      _  _    _____                             │      Alinne Monteiro de Melo
-               | | | |       | |    (_)| |  |  __ \                            │      Alycia dos Santos Bond
-  __ _   ___   | |_| |  __ _ | |__   _ | |_ | |  \/ _ __  ___   ___  _ __      │      Pedro Henrique Medeiros
+               | | | |       | |    (_)| |  |  __ \                            │      Alycia Santos Bond
+  __ _   ___   | |_| |  __ _ | |__   _ | |_ | |  \/ _ __  ___   ___  _ __      │      Pedro Henrique Medeiros dos Reis
  / _` | / _ \  |  _  | / _` || '_ \ | || __|| | __ | '__|/ _ \ / _ \| '_ \     │      Rafael Antônio Candian 
 | (_| || (_) | | | | || (_| || |_) || || |_ | |_\ \| |  |  __/|  __/| | | |    │
  \__,_| \___/  \_| |_/ \__,_||_.__/ |_| \__| \____/|_|   \___| \___||_| |_|    │      Pontifícia Universidade Católica de Campinas
                                                                                │
 """
-
     menu_lateral = Fore.YELLOW + """
  ┌────────────────────────────────────────────────────────────────────────┐
  │ Para acessar ao sistema, selecione abaixo uma das opções disponíveis.  │
  │ Com as próximas telas a interação é a mesma, fique livre e bom uso!    │
  └────────────────────────────────────────────────────────────────────────┘
 """
-
     opcoes = Fore.CYAN + Style.BRIGHT + """
 ┌───────────────┐
 │ Opções:       │
 │               │
 │ [1] Login     │
 │ [2] Cadastrar │
-│ [3] Sair      │
+│ [0] Sair      │
 └───────────────┘
 """
 
     print(f"{titulo_ascii}{menu_lateral}" + opcoes)
-
     while True:
         opcao = input(Fore.WHITE + Style.BRIGHT + "Digite a opção escolhida: ")
         if opcao == "1":
@@ -53,7 +49,7 @@ ______                      _   _  _             _                             �
             from cadastro import cadastro
             cadastro()
             break
-        elif opcao == "3":
+        elif opcao == "0":
             print(Fore.GREEN + "Até logo!")
             break
         else:

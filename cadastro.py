@@ -16,15 +16,24 @@ def validar_cpf(cpf):
 def cadastro():
     while True:
         limpar_tela()
-        print(Fore.CYAN + Style.BRIGHT + """
-   ____      _        _                 
-  / ___|__ _| | _____| |__   __ _ _ __  
- | |   / _` | |/ / _ \ '_ \ / _` | '_ \ 
- | |__| (_| |   <  __/ |_) | (_| | | | |
-  \____\__,_|_|\_\___|_.__/ \__,_|_| |_|
+ 
+        
+        titulo_ascii = Fore.CYAN + Style.BRIGHT +"""
+   _____          _           _             
+  / ____|        | |         | |            
+ | |     __ _  __| | __ _ ___| |_ _ __ ___  
+ | |    / _` |/ _` |/ _` / __| __| '__/ _ \ 
+ | |___| (_| | (_| | (_| \__ \ |_| | | (_) |
+  \_____\__,_|\__,_|\__,_|___/\__|_|  \___/                   
+            """
+            
+        menu_lateral = Fore.YELLOW + """
+┌────────────────────────────────────────────────────────────────────────┐
+│ Digite [0] para voltar ao menu                                         │
+└────────────────────────────────────────────────────────────────────────┘
+        """
+        print(titulo_ascii,menu_lateral)
 
-""" + Fore.YELLOW + "[CADASTRO DE NOVO USUÁRIO]" + Style.RESET_ALL)
-        print(Fore.MAGENTA + "(Digite 0 a qualquer momento para voltar)\n")
 
         # E-mail
         while True:

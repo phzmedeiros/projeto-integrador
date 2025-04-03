@@ -1,41 +1,54 @@
+from banco import Database
+from colorama import init, Fore, Style
+from tela_boas_vindas import tela_boas_vindas
 import os
-from colorama import Fore, Style, init
-init(autoreset=True)
+
+is_checked = False
 
 def limpar_tela():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def login():
     limpar_tela()
-
-    titulo_ascii = Fore.GREEN + Style.BRIGHT + """
- _   _       _     _ _   _____                           _                 _       
-| | | |     | |   (_) | |  __ \                      │  | |               (_)       
-| |_| | __ _| |__  _| |_| |  \/_ __ ___  ___ _ __    │  | |     ___   __ _ _ _ __  
-|  _  |/ _` | '_ \| | __| | __| '__/ _ \/ _ \ '_ \   │  | |    / _ \ / _` | | '_ \ 
-| | | | (_| | |_) | | |_| |_\ \ | |  __/  __/ | | |  │  | |___| (_) | (_| | | | | |
-\_| |_/\__,_|_.__/|_|\__|\____/_|  \___|\___|_| |_|  │  \_____/\___/ \__, |_|_| |_|
-                                                                      __/ |        
-                                                                     |___/         
-""" + Fore.YELLOW + """
- ┌────────────────────────────────────────────────────────────────────────────────────────┐
- │ Faça seu login para acessar o HabitGreen.                                              │
- │ Digite suas credenciais (email e senha) ou pressione [0] para voltar à tela inicial.   │
- └────────────────────────────────────────────────────────────────────────────────────────┘
-"""
-    print(titulo_ascii)
-
-    email = input(Fore.CYAN + "→ E-mail ou usuário: " + Style.RESET_ALL)
-    if email == "0":
-        return
+    titulo_ascii = Fore.CYAN + Style.BRIGHT +"""
+ _                _       
+| |    ___   __ _(_)_ __  
+| |   / _ \ / _` | | '_ \ 
+| |__| (_) | (_| | | | | |
+|_____\___/ \__, |_| |_|_|
+            |___/                     
+    """
     
-    senha = input(Fore.CYAN + "→ Senha: " + Style.RESET_ALL)
-    if senha == "0":
-        return
+    menu_lateral = Fore.YELLOW + """
+ ┌────────────────────────────────────────────────────────────────────────┐
+ │ Digite [0] para voltar ao menu                                         │
+ └────────────────────────────────────────────────────────────────────────┘
+"""
+    print(titulo_ascii,menu_lateral)
+    
 
-    # Aqui vai a verificação futura no banco de dados
-    print(Fore.BLUE + "\nVerificando credenciais...")
+    while not is_checked:
+      email=input("Digite seu email: \t")
+      if email == "0":
+          tela_boas_vindas()
+          return
+      senha=input("Digite sua senha: \t")
+      if senha == "0":
+          tela_boas_vindas()
+          return
+      check_login(email, senha)
 
-    # Simulação de login bem-sucedido
-    print(Fore.GREEN + "\nLogin realizado com sucesso!")
-    input(Fore.WHITE + Style.BRIGHT + "\nPressione Enter para continuar...")
+
+def check_login(email, senha):
+
+  db = Database()
+  user = db.fetchone("SELECT * FROM tb_client WHERE cli_email = %s AND cli_password = %s", (email, senha))
+  db.close()
+
+  if user:
+      is_checked = True
+      print(Fore.GREEN + "\n✅ E-mail válido. Acesso permitido.\n")
+  else:
+      print(Fore.RED + "\n❌ E-mail inválido. Tente novamente.\n")
+
+   

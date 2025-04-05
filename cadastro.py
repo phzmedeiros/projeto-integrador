@@ -4,11 +4,6 @@ from colorama import init, Fore, Style
 from tela_boas_vindas import tela_boas_vindas
 from banco import Database
 
-nome=''
-email=''
-senha=''
-comfirma=''
-cpf=''
 
 init(autoreset=True)  # Iniciar colorama
 
@@ -23,16 +18,16 @@ def validar_cpf(cpf):
 
 def cadastro():
     while True:
+        
         limpar_tela()
- 
         
         titulo_ascii = Fore.CYAN + Style.BRIGHT +"""
-   _____          _           _             
-  / ____|        | |         | |            
- | |     __ _  __| | __ _ ___| |_ _ __ ___  
- | |    / _` |/ _` |/ _` / __| __| '__/ _ \ 
- | |___| (_| | (_| | (_| \__ \ |_| | | (_) |
-  \_____\__,_|\__,_|\__,_|___/\__|_|  \___/                   
+   _____               _                 _                  
+  / ____|             | |               | |                 
+ | |        __ _    __| |   __ _   ___  | |_   _ __    ___  
+ | |       / _` |  / _` |  / _` | / __| | __| | '__|  / _ \ 
+ | |____  | (_| | | (_| | | (_| | \__ \ | |_  | |    | (_) |
+  \_____|  \__,_|  \__,_|  \__,_| |___/  \__| |_|     \___/                   
             """
             
         menu_lateral = Fore.YELLOW + """
@@ -51,7 +46,6 @@ def cadastro():
             else:
                 break
             
-
         # E-mail
         while True:
             email = input("E-mail: \t\t" + Style.RESET_ALL).strip()
@@ -90,18 +84,22 @@ def cadastro():
 
         limpar_tela()
         print(Fore.GREEN + f"\n✅ Cadastro realizado com sucesso para {nome}!\n")
-        input(Fore.CYAN + "Pressione Enter para continuar...")
-        register_user()
+        input(Fore.CYAN + "Pressione [Enter] para continuar...")
+        
+        #registra o usuário no banco de dados
+        register_user(nome, email, senha, cpf)
+
+        #voltar para a tela de boas vindas
         tela_boas_vindas()
         break
 
 
-def register_user():
+def register_user(nome, email, senha, cpf):
     #Registra um novo usuário no banco de dados
-    
+    #abre o banco de dados
+
     db = Database()
-    
-    
+
     # Insere o novo usuário
     db.execute("INSERT INTO tb_client (cli_name, cli_email, cli_password, cli_cpf) VALUES (%s, %s, %s, %s)",
             (nome, email, senha, cpf))

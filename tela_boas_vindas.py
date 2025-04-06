@@ -1,5 +1,8 @@
 import os
 from colorama import Fore, Style, init
+from login import login
+from cadastro import cadastro
+
 init(autoreset=True)
 
 def limpar_tela():
@@ -42,11 +45,9 @@ ______                      _   _  _             _                             �
     while True:
         opcao = input(Fore.WHITE + Style.BRIGHT + "Digite a opção escolhida: ")
         if opcao == "1":
-            from login import login
             login()
             break
         elif opcao == "2":
-            from cadastro import cadastro
             cadastro()
             break
         elif opcao == "0":

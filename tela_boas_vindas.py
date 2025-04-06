@@ -10,7 +10,7 @@ def limpar_tela():
 
 def tela_boas_vindas():
     limpar_tela()
-    titulo_ascii = Fore.GREEN + Style.BRIGHT +"""                                                                                            
+    titulo_ascii = Fore.GREEN + Style.BRIGHT + r"""                                                                                            
 ______                      _   _  _             _                             │
 | ___ \                    | | | |(_)           | |                            │      Aplicação para desenvolvimento sustentável.
 | |_/ /  ___    __ _  ___  | | | | _  _ __    __| |  __ _  ___                 │      Análise de dados e mentoria pra uma melhor
@@ -25,13 +25,13 @@ ______                      _   _  _             _                             �
  \__,_| \___/  \_| |_/ \__,_||_.__/ |_| \__| \____/|_|   \___| \___||_| |_|    │      Pontifícia Universidade Católica de Campinas
                                                                                │
 """
-    menu_lateral = Fore.YELLOW + """
+    menu_lateral = Fore.YELLOW + r"""
  ┌────────────────────────────────────────────────────────────────────────┐
  │ Para acessar ao sistema, selecione abaixo uma das opções disponíveis.  │
  │ Com as próximas telas a interação é a mesma, fique livre e bom uso!    │
  └────────────────────────────────────────────────────────────────────────┘
 """
-    opcoes = Fore.CYAN + Style.BRIGHT + """
+    opcoes = Fore.CYAN + Style.BRIGHT + r"""
 ┌───────────────┐
 │ Opções:       │
 │               │
@@ -41,7 +41,7 @@ ______                      _   _  _             _                             �
 └───────────────┘
 """
 
-    print(f"{titulo_ascii}{menu_lateral}" + opcoes)
+    print(titulo_ascii + menu_lateral + opcoes)
     while True:
         opcao = input(Fore.WHITE + Style.BRIGHT + "Digite a opção escolhida: ")
         if opcao == "1":

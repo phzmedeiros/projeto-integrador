@@ -1,16 +1,16 @@
 from banco import Database
-from colorama import init, Fore, Style
+from colorama import Fore, Style, init
+from menu import menu
+from sessao import usuario_logado
 import os
-
-is_checked = False
+init(autoreset=True)
 
 def limpar_tela():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def login():
-    from tela_boas_vindas import tela_boas_vindas  # Importação local para evitar ciclo
     limpar_tela()
-    titulo_ascii = Fore.GREEN + Style.BRIGHT +"""
+    titulo_ascii = Fore.GREEN + Style.BRIGHT + r"""
  _   _       _     _ _   _____                       │   _                 _       
 | | | |     | |   (_) | |  __ \                      │  | |               (_)      
 | |_| | __ _| |__  _| |_| |  \/_ __ ___  ___ _ __    │  | |     ___   __ _ _ _ __  
@@ -28,18 +28,27 @@ def login():
 """
     print(titulo_ascii + menu_lateral)
 
-    while not is_checked:
-        email = input(Fore.CYAN + "→ E-mail ou usuário: " + Style.RESET_ALL)
+    while True:
+        from tela_boas_vindas import tela_boas_vindas
+        email = input(Fore.GREEN + "→ E-mail: " + Style.RESET_ALL).strip()
         if email == "0":
             tela_boas_vindas()
             return
-        senha = input(Fore.CYAN + "→ Senha: " + Style.RESET_ALL)
+        
+        senha = input(Fore.GREEN + "→ Senha: " + Style.RESET_ALL).strip()
         if senha == "0":
             tela_boas_vindas()
             return
-        check_login(email, senha)
 
-    print(Fore.BLUE + "\nVerificando credenciais...")
+        if check_login(email, senha):
+            from menu import menu
+            limpar_tela()
+            print(Fore.GREEN + Style.BRIGHT + "\nLogin realizado com sucesso!")
+            limpar_tela()
+            menu()
+            break
+        else:
+            print(Fore.RED + Style.BRIGHT + "\nE-mail ou senha inválidos. Tente novamente.\n")
 
 def check_login(email, senha):
     db = Database()
@@ -47,8 +56,8 @@ def check_login(email, senha):
     db.close()
 
     if user:
-        is_checked = True
-        print(Fore.GREEN + "\n✅ E-mail válido. Acesso permitido.\n")
-        input(Fore.WHITE + Style.BRIGHT + "\nPressione Enter para continuar...")
-    else:
-        print(Fore.RED + "\n❌ E-mail inválido. Tente novamente.\n")
+        usuario_logado["id"] = user[0]
+        usuario_logado["nome"] = user[1]
+        usuario_logado["email"] = user[2]
+        return True
+    return False

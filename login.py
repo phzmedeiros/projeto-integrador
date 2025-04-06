@@ -1,6 +1,7 @@
 from banco import Database
 from colorama import init, Fore, Style
 from tela_boas_vindas import tela_boas_vindas
+from menu import menu_inicial
 import os
 
 #se esta 
@@ -56,9 +57,10 @@ def check_login(email, senha):
   if user:
       #se o email e senha estiverem corretos, is_checked será True
       is_checked = True
-      input(Fore.GREEN + "\n✅ E-mail válido. Acesso permitido.\n")
+      limpar_tela()
+      print(Fore.GREEN + "\n✅ E-mail válido. Acesso permitido.\n")
       input(Fore.CYAN + "Pressione [Enter] para continuar...")
-      menu()
+      menu_inicial()
   else:
       print(Fore.RED + "\n❌ E-mail inválido. Tente novamente.\n")
 

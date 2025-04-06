@@ -1,6 +1,3 @@
-<<<<<<< Updated upstream
-
-=======
 import os
 import re
 from colorama import init, Fore, Style
@@ -20,8 +17,21 @@ def calcular_impacto(transporte_lista,distancia):
         "6": 1.5, #Carro a Combustível Fóssil
         "7": 2.0 #Caminhão/Avião
     }
-    impacto_total = sum(distancia * impacto_dict.get(t,1.0) for t in transporte_lista)
-    return impacto_total
+    while True:
+        impacto_total = 0
+        try:
+            for t in transporte_lista:
+                t = str(t).strip()
+                if t in impacto_dict:
+                    impacto_total += distancia * impacto_dict[t]
+                else:
+                    raise ValueError (f"Transporte inválido: {t}. Use apenas opções de 1 a 7.")
+            return impacto_total
+        except ValueError as e:
+            print(e)
+            transporte = input ("\nDigite novamente os meios de transporte válidos (de 1 a 7), separados por vírgula: ")
+            transporte_lista = transporte.split(",")
+
 
 def classificar_transporte(transporte_lista):
     sustentaveis = {"1", "2", "3"}
@@ -60,6 +70,13 @@ def validar_transporte():
             return [t.strip() for t in transporte_lista]
         print (Fore.YELLOW + "❌ Entrada inválida! Escolha números de 1 a 7, separados por vírgula.")
 
+def classificar_sustentabilidade(valor, limite_baixo, limite_medio):
+        if valor <= limite_baixo:
+            return "Alta Sustentabilidade"
+        elif valor <= limite_medio:
+            return "Média Sustentabilidade"
+        else:
+            return "Baixa Sustentabilidade"
 
 def registrar_dados():
     limpar_tela()
@@ -80,53 +97,44 @@ ______ _____ _____ _____ _____ ___________ _____  ______ _____   │
 
     print(Fore.CYAN + "┌───────────────────────────────────────────────────────────────┐")
 
-data = validar_data()
-agua = validar_numero("💧 Água consumida (litros): ")
-energia = validar_numero("⚡ Energia consumida (kWh): ")
-residuos_nao_reciclaveis = validar_numero("🗑️ Resíduos não recicláveis (kg): ")
-residuos_reciclados = validar_numero("♻️ Resíduos reciclados (%): ")
+    data = validar_data()
+    agua = validar_numero("💧 Água consumida (litros): ")
+    energia = validar_numero("⚡ Energia consumida (kWh): ")
+    residuos_nao_reciclaveis = validar_numero("🗑️ Resíduos não recicláveis (kg): ")
+    residuos_reciclados = validar_numero("♻️ Resíduos reciclados (%): ")
     
-print(Fore.YELLOW + "\n🚗 Escolha os meios de transporte usados no dia:")
-print(Fore.WHITE + "+------------------------------------+")
-print(Fore.WHITE + "|  1 - Bicicleta 🚴                  |")
-print(Fore.WHITE + "|  2 - Caminhada 🚶                  |")
-print(Fore.WHITE + "|  3 - Transporte Público 🚌         |")
-print(Fore.WHITE + "|  4 - Carro Elétrico ⚡🚗           |")
-print(Fore.WHITE + "|  5 - Carona Compartilhada 🚘       |")
-print(Fore.WHITE + "|  6 - Carro a Combustível Fóssil 🚗 |")
-print(Fore.WHITE + "|  7 - Caminhão/Avião ✈️🚛            |")
-print(Fore.WHITE + "+------------------------------------+")
+    print(Fore.YELLOW + "\n🚗 Escolha os meios de transporte usados no dia:")
+    print(Fore.WHITE + "+------------------------------------+")
+    print(Fore.WHITE + "|  1 - Bicicleta 🚴                  |")
+    print(Fore.WHITE + "|  2 - Caminhada 🚶                  |")
+    print(Fore.WHITE + "|  3 - Transporte Público 🚌         |")
+    print(Fore.WHITE + "|  4 - Carro Elétrico ⚡🚗           |")
+    print(Fore.WHITE + "|  5 - Carona Compartilhada 🚘       |")
+    print(Fore.WHITE + "|  6 - Carro a Combustível Fóssil 🚗 |")
+    print(Fore.WHITE + "|  7 - Caminhão/Avião ✈️🚛            |")
+    print(Fore.WHITE + "+------------------------------------+")
 
-transporte_lista = validar_transporte()
-distancia = validar_numero ("📏 Distância total percorrida (km): ")
-impacto_transporte = calcular_impacto(transporte_lista, distancia)
-categoria_transporte = classificar_transporte(transporte_lista)
-
-def classificar_sustentabilidade(valor, limite_baixo, limite_medio):
-        if valor <= limite_baixo:
-            return "Alta Sustentabilidade"
-        elif valor <= limite_medio:
-            return "Média Sustentabilidade"
-        else:
-            return "Baixa Sustentabilidade"
+    transporte_lista = validar_transporte()
+    distancia = validar_numero ("📏 Distância total percorrida (km): ")
+    impacto_transporte = calcular_impacto(transporte_lista, distancia)
+    categoria_transporte = classificar_transporte(transporte_lista)
         
-sustentabilidade_agua = classificar_sustentabilidade(agua, 150, 300)
-sustentabilidade_energia = classificar_sustentabilidade(energia, 5, 15)
-sustentabilidade_residuos = classificar_sustentabilidade(residuos_nao_reciclaveis, 1, 3)
-sustentabilidade_transporte = classificar_sustentabilidade (impacto_transporte, 1, 3)
+    sustentabilidade_agua = classificar_sustentabilidade(agua, 150, 300)
+    sustentabilidade_energia = classificar_sustentabilidade(energia, 5, 15)
+    sustentabilidade_residuos = classificar_sustentabilidade(residuos_nao_reciclaveis, 1, 3)
+    sustentabilidade_transporte = classificar_sustentabilidade (impacto_transporte, 1, 3)
 
-print(Fore.GREEN + f"\n💧 Sustentabilidade da Água: {sustentabilidade_agua}")
-print(Fore.GREEN + f"⚡ Sustentabilidade da Energia: {sustentabilidade_energia}")
-print(Fore.GREEN + f"🗑️ Sustentabilidade dos Resíduos: {sustentabilidade_residuos}")
-print(Fore.GREEN + f"🚗 Sustentabilidade do Transporte: {sustentabilidade_transporte}")
+    print(Fore.GREEN + f"\n💧 Sustentabilidade da Água: {sustentabilidade_agua}")
+    print(Fore.GREEN + f"⚡ Sustentabilidade da Energia: {sustentabilidade_energia}")
+    print(Fore.GREEN + f"🗑️ Sustentabilidade dos Resíduos: {sustentabilidade_residuos}")
+    print(Fore.GREEN + f"🚗 Sustentabilidade do Transporte: {sustentabilidade_transporte}")
     
-dados = f"{data}, {agua}, {energia}, {residuos_nao_reciclaveis}, {residuos_reciclados}, {'/'.join(transporte_lista)}, {distancia}, {impacto_transporte}, {categoria_transporte}, {sustentabilidade_agua}, {sustentabilidade_energia}, {sustentabilidade_residuos}, {sustentabilidade_transporte}\n"
+    dados = f"{data}, {agua}, {energia}, {residuos_nao_reciclaveis}, {residuos_reciclados}, {'/'.join(transporte_lista)}, {distancia}, {impacto_transporte}, {categoria_transporte}, {sustentabilidade_agua}, {sustentabilidade_energia}, {sustentabilidade_residuos}, {sustentabilidade_transporte}\n"
 
-with open("registro_sustentavel.txt", "a") as arquivo:
+    with open("registro_sustentavel.txt", "a") as arquivo:
         arquivo.write(dados)
 
-print(Fore.GREEN + "\n✅ Dados registrados com sucesso! Vamos rumo a um mundo mais sustentável! 🌱")
+    print(Fore.GREEN + "\n✅ Dados registrados com sucesso! Vamos rumo a um mundo mais sustentável! 🌱")
 
 if __name__ == "__main__":
     registrar_dados()
->>>>>>> Stashed changes

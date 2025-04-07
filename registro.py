@@ -1,140 +1,160 @@
+from colorama import Fore, Style, init
 import os
-import re
-from colorama import init, Fore, Style
+from banco import Database
 
-init(autoreset=True)
+init(autoreset=True)  # Iniciar colorama
 
 def limpar_tela():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def calcular_impacto(transporte_lista,distancia):
-    impacto_dict = {
-        "1": 0.02, # Bicicleta
-        "2": 0.01, #Caminhada
-        "3": 0.1, #Transporte Públic
-        "4": 0.7, #Carro Elétrico
-        "5": 0.8, #Carona Compartilhada
-        "6": 1.5, #Carro a Combustível Fóssil
-        "7": 2.0 #Caminhão/Avião
-    }
-    while True:
-        impacto_total = 0
-        try:
-            for t in transporte_lista:
-                t = str(t).strip()
-                if t in impacto_dict:
-                    impacto_total += distancia * impacto_dict[t]
-                else:
-                    raise ValueError (f"Transporte inválido: {t}. Use apenas opções de 1 a 7.")
-            return impacto_total
-        except ValueError as e:
-            print(e)
-            transporte = input ("\nDigite novamente os meios de transporte válidos (de 1 a 7), separados por vírgula: ")
-            transporte_lista = transporte.split(",")
-
-
-def classificar_transporte(transporte_lista):
-    sustentaveis = {"1", "2", "3"}
-    nao_sustentaveis = {"6", "7"}
-
-    if all(t in sustentaveis for t in transporte_lista):
-        return "Sustentável"
-    elif any(t in sustentaveis for t in transporte_lista) and any(t in nao_sustentaveis):
-        return "Misto"
-    else:
-        return "Não Sustentável"
-    
-def validar_data():
-    while True:
-      data = input(Fore.BLUE + "📅 Digite a data (DD-MM-AAAA):")
-      if re.match(r"^\d{2}-\d{2}-\d{4}$", data):
-        return data
-      print(Fore.YELLOW + "❌ Formato inválido! Use DD-MM-AAAA.")
-
-def validar_numero(mensagem):
-    while True:
-        try:
-            valor = float(input(Fore.BLUE + mensagem))
-            if valor >=0:
-                return valor
-            else:
-                 print(Fore.YELLOW + "❌ O valor não pode ser negativo.")
-        except ValueError:
-           print(Fore.YELLOW + "❌ Entrada inválida! Digite um número.")
-
-def validar_transporte():
-    while True:
-        transporte = input(Fore.YELLOW + "Digite os números correspondentes separados por vírgula. (Ex: 1,3): ")
-        transporte_lista = transporte.split(",")
-        if all (t.strip().isdigit() and 1 <= int(t.strip()) <=7 for t in transporte_lista):
-            return [t.strip() for t in transporte_lista]
-        print (Fore.YELLOW + "❌ Entrada inválida! Escolha números de 1 a 7, separados por vírgula.")
-
-def classificar_sustentabilidade(valor, limite_baixo, limite_medio):
-        if valor <= limite_baixo:
-            return "Alta Sustentabilidade"
-        elif valor <= limite_medio:
-            return "Média Sustentabilidade"
-        else:
-            return "Baixa Sustentabilidade"
-
-def registrar_dados():
+def registro(dia, mes, ano):
     limpar_tela()
-    print(Fore.GREEN + Style.BRIGHT + """
-______ _____ _____ _____ _____ ___________ _____  ______ _____   │
-| ___ \  ___|  __ \_   _/  ___|_   _| ___ \  _  | |  _  \  ___|  │
-| |_/ / |__ | |  \/ | | \ `--.  | | | |_/ / | | | | | | | |__    │  ┌────────────────────────────────────────────────┐
-|    /|  __|| | __  | |  `--. \ | | |    /| | | | | | | |  __|   │  │ Registre e acompanhe seu consumo diário de     │
-| |\ \| |___| |_\ \_| |_/\__/ / | | | |\ \| \_/ | | |/ /| |___   │  │               recursos naturais.               │
-\_| \_\____/ \____/\___/\____/  \_/ \_| \_|\___/  |___/ \____/   │  │   Fornecendo essas informações, é possível     │
- _____ _____ _   _ _____ _   ____  ________                      │  │  analisar hábitos e identificar maneiras de    │
-/  __ \  _  | \ | /  ___| | | |  \/  |  _  |                     │  │         reduzir o impacto ambiental.           │
-| /  \/ | | |  \| \ `--.| | | | .  . | | | |                     │  └────────────────────────────────────────────────┘
-| |   | | | | . ` |`--. \ | | | |\/| | | | |                     │
-| \__/\ \_/ / |\  /\__/ / |_| | |  | \ \_/ /                     │
- \____/\___/\_| \_|____/ \___/\_|  |_/\___/                      │
+    print(f'Registro de {dia}/{mes}/{ano}')
+    check_register(dia, mes, ano)
+
+def check_register(dia, mes, ano):
+    db = Database()
+    data = f"{ano}-{mes:02d}-{dia:02d}"
+    registro = db.fetchone("SELECT * FROM tb_register WHERE date = %s", (data,))
+    db.close()
+
+    if registro:
+        print(Fore.GREEN + f"\n✅ Registro encontrado nesta data.\n")
+    else:
+        print(Fore.RED + f"\n❌ Nenhum registro encontrado nesta data. Gostaria de cadastrar?\n")
+        print(Fore.YELLOW + """
+┌──────────────────────────────┐
+│ [1] Sim                      │ 
+│ [2] Não, voltar para o menu  │
+└──────────────────────────────┘
 """)
+        while True:
+            opcao = input(Fore.WHITE + Style.BRIGHT + "Escolha uma opção: ")
+            if opcao == "1":
+                cadastrar_registro(dia, mes, ano)
+                break
+            elif opcao == "2":
+                from menu import menu_inicial  # Importação local
+                menu_inicial()
+                break
+            else:
+                print(Fore.RED + "\nOpção inválida. Tente novamente.\n")
+                
 
-    print(Fore.CYAN + "┌───────────────────────────────────────────────────────────────┐")
+def cadastrar_registro(dia, mes, ano):
+    limpar_tela()
+    print(f"Cadastro para a data {dia}/{mes}/{ano}\n")
+    menu_lateral = Fore.YELLOW + """
+ ┌────────────────────────────────────────────────────────────────────────┐
+ │ Digite [0] para voltar ao menu                                         │
+ └────────────────────────────────────────────────────────────────────────┘
+"""
+    print(menu_lateral)
+    #agua consumida
+    while True:
+        try:
+            water = input(Fore.BLUE +"\n💧 Agua consumida (em litros): ") 
+            if water == "0":
+                from menu import menu_inicial
+                menu_inicial()
+                break
+            break
+        except ValueError:
+            print(Fore.RED + "\n❌ Valor inválido. Tente novamente.\n")
+            continue
 
-    data = validar_data()
-    agua = validar_numero("💧 Água consumida (litros): ")
-    energia = validar_numero("⚡ Energia consumida (kWh): ")
-    residuos_nao_reciclaveis = validar_numero("🗑️ Resíduos não recicláveis (kg): ")
-    residuos_reciclados = validar_numero("♻️ Resíduos reciclados (%): ")
+    #energia consumida
+    while True:
+        try:
+            energy = input(Fore.YELLOW +"\n⚡ Energia consumida (em kWh): ") 
+            if energy == "0":
+                from menu import menu_inicial
+                menu_inicial()
+                break
+            break
+        except ValueError:
+            print(Fore.RED + "\n❌ Valor inválido. Tente novamente.\n")
+            continue
+
+    #reciduos não reciclaveis
+    while True:
+        try:
+            waste = input(Fore.WHITE +"\n🗑️  Resíduos não recicláveis (em kg): ") 
+            if waste == "0":
+                from menu import menu_inicial
+                menu_inicial()
+                break
+            break
+        except ValueError:
+            print(Fore.RED + "\n❌ Valor inválido. Tente novamente.\n")
+            continue
+
+    #resciduos reciclaveis
+    while True:
+        try:
+            rwaste = input(Fore.GREEN +"\n♻️  Resíduos recicláveis (em kg): ") 
+            if rwaste == "0":
+                from menu import menu_inicial
+                menu_inicial()
+                break
+            break
+        except ValueError:
+            print(Fore.RED + "\n❌ Valor inválido. Tente novamente.\n")
+            continue
     
-    print(Fore.YELLOW + "\n🚗 Escolha os meios de transporte usados no dia:")
-    print(Fore.WHITE + "+------------------------------------+")
-    print(Fore.WHITE + "|  1 - Bicicleta 🚴                  |")
-    print(Fore.WHITE + "|  2 - Caminhada 🚶                  |")
-    print(Fore.WHITE + "|  3 - Transporte Público 🚌         |")
-    print(Fore.WHITE + "|  4 - Carro Elétrico ⚡🚗           |")
-    print(Fore.WHITE + "|  5 - Carona Compartilhada 🚘       |")
-    print(Fore.WHITE + "|  6 - Carro a Combustível Fóssil 🚗 |")
-    print(Fore.WHITE + "|  7 - Caminhão/Avião ✈️🚛            |")
-    print(Fore.WHITE + "+------------------------------------+")
+    #transporte
+    while True:
+        print("\nEscolha sua opção de transporte: \n")
+        print(Fore.YELLOW + """
 
-    transporte_lista = validar_transporte()
-    distancia = validar_numero ("📏 Distância total percorrida (km): ")
-    impacto_transporte = calcular_impacto(transporte_lista, distancia)
-    categoria_transporte = classificar_transporte(transporte_lista)
+ [1] Rransporte publico 🚌 
+ [2] Bicicleta 🚲          
+ [3] Caminhada 🚶‍♂️           
+ [4] Carro (Fóssil) 🚗     
+ [5] Carro Elétrico 🚗⚡            
+
+""")
         
-    sustentabilidade_agua = classificar_sustentabilidade(agua, 150, 300)
-    sustentabilidade_energia = classificar_sustentabilidade(energia, 5, 15)
-    sustentabilidade_residuos = classificar_sustentabilidade(residuos_nao_reciclaveis, 1, 3)
-    sustentabilidade_transporte = classificar_sustentabilidade (impacto_transporte, 1, 3)
+        opcao_trans = input(Fore.WHITE + Style.BRIGHT + "Escolha uma opção: ")
 
-    print(Fore.GREEN + f"\n💧 Sustentabilidade da Água: {sustentabilidade_agua}")
-    print(Fore.GREEN + f"⚡ Sustentabilidade da Energia: {sustentabilidade_energia}")
-    print(Fore.GREEN + f"🗑️ Sustentabilidade dos Resíduos: {sustentabilidade_residuos}")
-    print(Fore.GREEN + f"🚗 Sustentabilidade do Transporte: {sustentabilidade_transporte}")
+        if opcao_trans == "1":
+            transport = "transporte_publico"
+            break
+        elif opcao_trans == "2":
+            transport = "bicicleta"
+            break
+        elif opcao_trans == "3":
+            transport = "caminhada"
+            break
+        elif opcao_trans == "4":
+            transport = "carro_fossil"
+            break
+        elif opcao_trans == "5":
+            transport = "carro_eletrico"
+            break
+        elif opcao_trans == "0":
+            from menu import menu_inicial
+            menu_inicial()
+            break
+        else:
+            print(Fore.RED + "\n❌ Opção inválida. Tente novamente.\n")
+            continue
     
-    dados = f"{data}, {agua}, {energia}, {residuos_nao_reciclaveis}, {residuos_reciclados}, {'/'.join(transporte_lista)}, {distancia}, {impacto_transporte}, {categoria_transporte}, {sustentabilidade_agua}, {sustentabilidade_energia}, {sustentabilidade_residuos}, {sustentabilidade_transporte}\n"
+    # abrir o banco de dados
+    db = Database()
 
-    with open("registro_sustentavel.txt", "a") as arquivo:
-        arquivo.write(dados)
+    #formatar a data no formato esperado pelo banco de dados (YYYY-MM-DD)
+    data = f"{ano}-{mes:02d}-{dia:02d}"
 
-    print(Fore.GREEN + "\n✅ Dados registrados com sucesso! Vamos rumo a um mundo mais sustentável! 🌱")
+    # query para inserir o registro
+    db.execute("INSERT INTO tb_register (user_id,date,water,energy,organic_waste,recyclable_waste,transport) VALUES (%s)",
+               (1,data,float(water),float(energy),float(waste),float(rwaste),transport))
 
-if __name__ == "__main__":
-    registrar_dados()
+    db.close()
+
+    print(Fore.GREEN + f"\n✅ Registro cadastrado com sucesso na data {data}.\n")
+    input(Fore.CYAN + "Pressione [Enter] para continuar...")
+    from menu import menu_inicial
+    menu_inicial()
+
+

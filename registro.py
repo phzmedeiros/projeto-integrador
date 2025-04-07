@@ -28,13 +28,13 @@ ______ _____ _____ _____ _____ ___________ _____  ______ _____   │
 """
     print(titulo_ascii)
 
-    print(Fore.YELLOW + "Escolha o tipo de registro:")
+    print(Fore.YELLOW + Style.BRIGHT + "Escolha o tipo de registro:")
     hoje = datetime.now()
-    print(Fore.YELLOW + f"""
+    print(Fore.CYAN + f"""
 ╔═════════════════════════════════════════════════════════════════╗
 ║                        Tipo de Registro                         ║
 ╠═════════════════════════════════════════════════════════════════╣
-║ [1] Registrar o dia de hoje     ({hoje.strftime('%d/%m/%Y')})   ║
+║ [1] Registrar o dia de hoje     ({hoje.strftime('%d/%m/%Y')})                    ║
 ║ [2] Escolher outro dia                                          ║
 ║ [0] Voltar ao menu                                              ║
 ╚═════════════════════════════════════════════════════════════════╝

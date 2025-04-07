@@ -60,8 +60,12 @@ ______     _       _             _
     print(titulo_ascii)
 
     print(Fore.YELLOW + Style.BRIGHT + "Deseja ver o relatório de qual dia?\n")
-    print(Fore.YELLOW + "[1] Hoje")
-    print(Fore.YELLOW + "[2] Outro dia\n")
+    print(Fore.CYAN + """
+┌─────────────────────────────┐
+│ [1] Relatório de hoje       │
+│ [0] Relatório de outro dia  │
+└─────────────────────────────┘
+""")
     opcao = input(Fore.CYAN + "→ Escolha: ").strip()
 
     if opcao == "1":

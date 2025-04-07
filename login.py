@@ -30,12 +30,12 @@ def login():
 
     while True:
         from tela_boas_vindas import tela_boas_vindas
-        email = input(Fore.GREEN + "→ E-mail: " + Style.RESET_ALL).strip()
+        email = input(Fore.CYAN + "→ E-mail: " + Style.RESET_ALL).strip()
         if email == "0":
             tela_boas_vindas()
             return
         
-        senha = input(Fore.GREEN + "→ Senha: " + Style.RESET_ALL).strip()
+        senha = input(Fore.CYAN + "→ Senha: " + Style.RESET_ALL).strip()
         if senha == "0":
             tela_boas_vindas()
             return

@@ -17,25 +17,25 @@ def menu():
 | | | | (_| | |_) | | |_| |_\ \ | |  __/  __/ | | |
 \_| |_/\__,_|_.__/|_|\__|\____/_|  \___|\___|_| |_|
 """)
-        print(Fore.YELLOW + f"Bem-vindo, {usuario_logado['nome']}! O que deseja fazer?")
+        print(Fore.YELLOW + Style.BRIGHT + f"Bem-vindo, {usuario_logado['nome']}! O que deseja fazer?")
 
-        print(Fore.CYAN + """
-[1] Registrar Consumo do Dia
-[2] Ver Relatório do Dia
+        print(Fore.YELLOW + """
+[1] Registrar Consumo
+[2] Ver Relatório
 [3] Ver Histórico
 [4] Editar ou Excluir Registro
 [5] Perfil
 [0] Sair
 """)
 
-        opcao = input(Fore.GREEN + "→ Escolha uma opção: " + Style.RESET_ALL).strip()
+        opcao = input(Fore.CYAN + "→ Escolha uma opção: " + Style.RESET_ALL).strip()
 
         if opcao == "1":
-            from registro import registrar_consumo
-            registrar_consumo()
-        # elif opcao == "2":
-        #     #from relatorio import relatorio_do_dia
-        #     #relatorio_do_dia()
+            from registro import registro
+            registro()
+        elif opcao == "2":
+            from relatorio import relatorio_do_dia
+            relatorio_do_dia()
         # elif opcao == "3":
         #     from historico import ver_historico
         #     ver_historico()

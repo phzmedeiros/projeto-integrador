@@ -75,10 +75,10 @@ Além de aplicar práticas de **controle de versão com Git**, **trabalho em equ
 
 main ← versão final e estável <br>
 └── develop ← integração de funcionalidades <br>
-    ├── feature/alinne-ui <br>
-    ├── feature/alycia-db <br>
-    ├── feature/pedro-registros <br>
-    └── feature/rafael-relatorio
+----├── feature/alinne-ui <br>
+----├── feature/alycia-db <br>
+----├── feature/pedro-registros <br>
+----└── feature/rafael-relatorio
 
 ---
 

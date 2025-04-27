@@ -1,8 +1,6 @@
--- Criação do banco de dados
 CREATE DATABASE IF NOT EXISTS `database-fa`;
 USE `database-fa`;
 
--- Tabela de usuários
 CREATE TABLE tb_client (
     cli_id INT AUTO_INCREMENT PRIMARY KEY,
     cli_name VARCHAR(50) NOT NULL,
@@ -11,7 +9,6 @@ CREATE TABLE tb_client (
     cli_cpf VARCHAR(50) NOT NULL UNIQUE
 );
 
--- Tabela de registros diários
 CREATE TABLE tb_register (
     id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
@@ -25,7 +22,6 @@ CREATE TABLE tb_register (
     FOREIGN KEY (user_id) REFERENCES tb_client(cli_id)
 );
 
--- Tabela de pontuação e dicas
 CREATE TABLE tb_score (
     id INT NOT NULL AUTO_INCREMENT,
     register_id INT NOT NULL,
@@ -39,6 +35,5 @@ CREATE TABLE tb_score (
     FOREIGN KEY (register_id) REFERENCES tb_register(id)
 );
 
--- Inserção de usuário administrador
 INSERT INTO tb_client (cli_name, cli_email, cli_password, cli_cpf)
 VALUES ('admin', 'admin@email.com', 'admin123', '00000000000');

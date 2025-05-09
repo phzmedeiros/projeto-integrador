@@ -1,6 +1,6 @@
-import mysql.connector
+import mysql.connector # Importa o módulo mysql.connector para conectar ao banco de dados MySQL
 
-class Database:
+class Database: # Classe para gerenciar a conexão com o banco de dados
     def __init__(self):
         self.conn = mysql.connector.connect(
             host="localhost",
@@ -9,9 +9,9 @@ class Database:
             password="",
             database="database-fa"
         )
-        self.cursor = self.conn.cursor()
+        self.cursor = self.conn.cursor() # Cria um cursor para executar comandos SQL
 
-    def execute(self, query, values=None):
+    def execute(self, query, values=None): 
         """Executa um comando SQL."""
         self.cursor.execute(query, values or ())
         self.conn.commit()

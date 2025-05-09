@@ -1,15 +1,19 @@
-import os
-from colorama import Fore, Style, init
-from login import login
-from cadastro import cadastro
+import os # Importando a biblioteca os para interações com o sistema operacional
+from colorama import Fore, Style, init # Importando a biblioteca colorama para formatação de texto
+from login import login # Importando a função de login
+from cadastro import cadastro # Importando a função de cadastro
 
-init(autoreset=True)
+init(autoreset=True) # Iniciar colorama
 
+# Definindo a função que limpa a tela do terminal
 def limpar_tela():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+# Definindo a função que exibe a tela de boas-vindas
 def tela_boas_vindas():
     limpar_tela()
+
+    # ASCII art para o título
     titulo_ascii = Fore.GREEN + Style.BRIGHT + r"""                                                                                            
 ______                      _   _  _             _                             │
 | ___ \                    | | | |(_)           | |                            │      Aplicação para desenvolvimento sustentável.
@@ -30,7 +34,9 @@ ______                      _   _  _             _                             �
  │ Para acessar ao sistema, selecione abaixo uma das opções disponíveis.  │
  │ Com as próximas telas a interação é a mesma, fique livre e bom uso!    │
  └────────────────────────────────────────────────────────────────────────┘
-"""
+""" # Exibindo o menu lateral e instruções para o usuário
+    
+    # Definindo as opções do menu
     opcoes = Fore.CYAN + Style.BRIGHT + r"""
 ┌───────────────┐
 │ Opções:       │
@@ -42,16 +48,17 @@ ______                      _   _  _             _                             �
 """
 
     print(titulo_ascii + menu_lateral + opcoes)
-    while True:
+    while True: # Loop para garantir que o usuário escolha uma opção válida
+        # Solicita ao usuário que escolha uma opção
         opcao = input(Fore.WHITE + Style.BRIGHT + "Digite a opção escolhida: ")
-        if opcao == "1":
+        if opcao == "1": # Se o usuário digitar "1": inicia o processo de login
             login()
             break
-        elif opcao == "2":
+        elif opcao == "2": # Se o usuário digitar "2": inicia o processo de cadastro
             cadastro()
             break
-        elif opcao == "0":
+        elif opcao == "0": # Se o usuário digitar "3": encerra o programa
             print(Fore.GREEN + "Até logo!")
             break
-        else:
+        else: # Se o usuário digitar uma opção inválida: exibe mensagem de erro
             print(Fore.RED + "Opção inválida. Tente novamente.")

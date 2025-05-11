@@ -8,6 +8,7 @@ def limpar_tela():
 def tela_boas_vindas():
     limpar_tela()
 
+# título
     titulo_ascii = Fore.GREEN + r"""                                                                                            
 @@@@@@@    @@@@@@    @@@@@@    @@@@@@      @@@  @@@  @@@  @@@  @@@  @@@@@@@    @@@@@@    @@@@@@   
 @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@      @@@  @@@  @@@  @@@@ @@@  @@@@@@@@  @@@@@@@@  @@@@@@@   
@@ -28,7 +29,7 @@ def tela_boas_vindas():
  │ sustentabilidade e uma melhor rotina pessoal   │
  └────────────────────────────────────────────────┘
 """
-
+ # Opções do menu
     opcoes = Fore.YELLOW + Style.BRIGHT + """
  [1] Login
  [2] Cadastrar
@@ -37,7 +38,7 @@ def tela_boas_vindas():
 
     print(titulo_ascii + menu_lateral + opcoes)
 
-    while True:
+    while True: # Loop para capturar a opção do usuário
         opcao = input(Fore.CYAN + "\nEscolha uma opção: ")
         if opcao == "1":
             from login import login

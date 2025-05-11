@@ -7,12 +7,14 @@ init(autoreset=True)  # Iniciar colorama
 def limpar_tela():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+# Funções de validação de e-mail e CPF
 def validar_email(email):
     return re.match(r"[^@]+@[^@]+\.[^@]+", email)
 
 def validar_cpf(cpf):
     return cpf.isdigit() and len(cpf) == 11
 
+# Função de cadastro
 def cadastro():
     while True:
         limpar_tela()

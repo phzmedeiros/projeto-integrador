@@ -1,13 +1,16 @@
 import os
 from colorama import Fore, Style, init
-init(autoreset=True)
+init(autoreset=True) # Iniciar colorama
+
 
 def limpar_tela():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+
 def tela_boas_vindas():
     limpar_tela()
 
+# título com arte ASCII
     titulo_ascii = Fore.GREEN + Style.BRIGHT +"""                                                                                            
 ______                      _   _  _             _                             │
 | ___ \                    | | | |(_)           | |                            │      Aplicação para desenvolvimento sustentável.
@@ -24,6 +27,7 @@ ______                      _   _  _             _                             �
                                                                                │
 """
 
+# menu lateral com informações para o usuário
     menu_lateral = Fore.YELLOW + """
  ┌────────────────────────────────────────────────────────────────────────┐
  │ Para acessar ao sistema, selecione abaixo uma das opções disponíveis.  │
@@ -43,7 +47,7 @@ ______                      _   _  _             _                             �
 
     print(f"{titulo_ascii}{menu_lateral}" + opcoes)
 
-    while True:
+    while True: # loop para verificar a opção escolhida
         opcao = input(Fore.WHITE + Style.BRIGHT + "Digite a opção escolhida: ")
         if opcao == "1":
             from login import login

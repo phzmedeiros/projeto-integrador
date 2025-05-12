@@ -1,6 +1,6 @@
-import mysql.connector
+import mysql.connector # biblioteca para conexão com o MySQL
 
-class Database:
+class Database: 
     def __init__(self):
         self.conn = mysql.connector.connect(
             host="localhost",

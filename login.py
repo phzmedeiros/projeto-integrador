@@ -3,7 +3,7 @@ from colorama import Fore, Style, init
 from menu import menu
 from sessao import usuario_logado
 import os
-init(autoreset=True)
+init(autoreset=True) # Iniciar colorama
 
 def limpar_tela():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -30,16 +30,19 @@ def login():
 
     while True:
         from tela_boas_vindas import tela_boas_vindas
+        # E-mail
         email = input(Fore.CYAN + "→ E-mail: " + Style.RESET_ALL).strip()
         if email == "0":
             tela_boas_vindas()
             return
         
+        # Senha
         senha = input(Fore.CYAN + "→ Senha: " + Style.RESET_ALL).strip()
         if senha == "0":
             tela_boas_vindas()
             return
-
+        
+        # Verifica se o e-mail e a senha estão corretos
         if check_login(email, senha):
             from menu import menu
             limpar_tela()
@@ -50,6 +53,7 @@ def login():
         else:
             print(Fore.RED + Style.BRIGHT + "\nE-mail ou senha inválidos. Tente novamente.\n")
 
+# verifica se o email e a senha existem no banco de dados
 def check_login(email, senha):
     db = Database()
     user = db.fetchone("SELECT * FROM tb_client WHERE cli_email = %s AND cli_password = %s", (email, senha))

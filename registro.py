@@ -40,7 +40,6 @@ def check_register(dia, mes, ano):
             else:
                 print(Fore.RED + "\nOpção inválida. Tente novamente.\n")
                 
-
 def cadastrar_registro(dia, mes, ano):
     limpar_tela()
     print(f"Cadastro para a data {dia}/{mes}/{ano}\n")

@@ -11,26 +11,22 @@ def limpar_tela():
 
 def pontuar_agua(valor):
     if valor <= 100: return 100
-    if valor <= 150: return 80
-    if valor <= 200: return 60
-    if valor <= 250: return 40
-    if valor <= 300: return 20
-    if valor > 300: return 0
+    if valor <= 150: return 70
+    if valor <= 200: return 50
+    return 20
 
 def pontuar_energia(valor):
-    if valor <= 4: return 100
-    if valor <= 6: return 80
-    if valor <= 9: return 60
-    if valor <= 12: return 40
-    if valor <= 15: return 20   
-    if valor > 15: return 0
+    if valor <= 10: return 100
+    if valor <= 20: return 70
+    if valor <= 30: return 50
+    return 20
 
 def pontuar_lixo(org, rec):
     total = org + rec
     if total == 0: return 100
     proporcao = rec / total
     if proporcao >= 0.8: return 100
-    if proporcao >= 0.5: return 80
+    if proporcao >= 0.5: return 70
     if proporcao >= 0.3: return 50
     return 20
 
@@ -40,9 +36,9 @@ def pontuar_transporte(tipo):
     return 20
 
 def classificar(pontuacao):
-    if pontuacao >= 70:
+    if pontuacao >= 80:
         return "Excelente 🌱", Fore.GREEN
-    elif pontuacao >= 40:
+    elif pontuacao >= 50:
         return "Moderado 🌿", Fore.YELLOW
     else:
         return "Ruim 🔥", Fore.RED
@@ -99,19 +95,6 @@ ______     _       _             _
         print(Fore.RED + "\nNenhum registro encontrado para essa data.")
         input("Pressione Enter para continuar...")
         return
-    
-    for water, energy, lixo_org, lixo_rec, transporte in resultado:
-        soma_agua += pontuar_agua(water)
-        soma_energia += pontuar_energia(energy)
-        soma_lixo += pontuar_lixo(lixo_org, lixo_rec)
-        soma_transporte += pontuar_transporte(transporte)
-        quantidade += 1
-
-    media_agua = soma_agua / quantidade
-    media_energia = soma_energia / quantidade
-    media_lixo = soma_lixo / quantidade
-    media_transporte = soma_transporte / quantidade
-    media_geral = int((media_agua + media_energia + media_lixo + media_transporte) / 4)
 
     water, energy, lixo_org, lixo_rec, transporte = resultado
     p1 = pontuar_agua(water)
@@ -129,12 +112,6 @@ ______     _       _             _
     print(f"- Lixo orgânico: {lixo_org:.1f} kg")
     print(f"- Lixo reciclável: {lixo_rec:.1f} kg")
     print(f"- Transporte: {transporte.title()}\n")
-    print(f"\nMÉDIAS: ")
-    print(f"Água: {media_agua:.1f} L")
-    print(f"Energia: {media_energia:.1f} kWh")
-    print(f"Lixo orgânico: {media_lixo:.1f} kg")
-    print(f"Lixo reciclável: {media_lixo:.1f} kg")
-    print(f"Transporte: {transporte.title()}\n")
 
     print(Fore.BLUE +   f"Água       | {gerar_barra(p1)}")
     print(Fore.YELLOW + f"Energia    | {gerar_barra(p2)}")
@@ -146,9 +123,9 @@ ______     _       _             _
     print(cor + Style.BRIGHT + f"\nPontuação geral: {media}/100")
     print(cor + Style.BRIGHT + f"Classificação: {classificacao}\n")
 
-    if media >= 70:
+    if media >= 80:
         mensagem = "Parabéns! Seu dia foi incrível para o planeta! Continue assim! 🌎"
-    elif media >= 40:
+    elif media >= 50:
         mensagem = "Bom trabalho! Mas ainda há espaço para melhorar. Pequenas atitudes fazem diferença!"
     else:
         mensagem = "Hoje não foi um bom dia para o meio ambiente... Que tal compensar amanhã?"

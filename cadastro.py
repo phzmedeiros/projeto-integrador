@@ -1,14 +1,10 @@
 import os
 import re
 from colorama import init, Fore, Style
-<<<<<<< HEAD
-from tela_boas_vindas import tela_boas_vindas
-from banco import Database
 
 
-=======
 from banco import Database
->>>>>>> feature/pedro
+from criptografia import cifra_hill_criptografar, cifra_hill_descriptografar, CHAVE_HILL
 init(autoreset=True)  # Iniciar colorama
 
 def limpar_tela():
@@ -20,82 +16,13 @@ def validar_email(email):
 def validar_cpf(cpf):
     return cpf.isdigit() and len(cpf) == 11
 
+
 def cadastro():
     from tela_boas_vindas import tela_boas_vindas
     while True:
         
         limpar_tela()
         
-<<<<<<< HEAD
-        titulo_ascii = Fore.CYAN + Style.BRIGHT +"""
-   _____               _                 _                  
-  / ____|             | |               | |                 
- | |        __ _    __| |   __ _   ___  | |_   _ __    ___  
- | |       / _` |  / _` |  / _` | / __| | __| | '__|  / _ \ 
- | |____  | (_| | | (_| | | (_| | \__ \ | |_  | |    | (_) |
-  \_____|  \__,_|  \__,_|  \__,_| |___/  \__| |_|     \___/                   
-            """
-            
-        menu_lateral = Fore.YELLOW + """
-┌────────────────────────────────────────────────────────────────────────┐
-│ Digite [0] para voltar ao menu                                         │
-└────────────────────────────────────────────────────────────────────────┘
-        """
-        print(titulo_ascii,menu_lateral)
-
-
-        # Nome
-        while True:
-            nome = input("Nome: \t\t\t" + Style.RESET_ALL).strip()
-            if nome == "0":
-                tela_boas_vindas()
-            else:
-                break
-            
-        # E-mail
-        while True:
-            email = input("E-mail: \t\t" + Style.RESET_ALL).strip()
-            if email == "0":
-                tela_boas_vindas()
-            if validar_email(email):
-                break
-            print(Fore.RED + "\n❌ E-mail inválido. Tente novamente.\n")
-
-        # CPF
-        while True:
-            cpf = input("CPF: \t\t\t" + Style.RESET_ALL).strip()
-            if cpf == "0":
-                tela_boas_vindas()
-            if validar_cpf(cpf):
-                break
-            print(Fore.RED + "\n❌ CPF inválido. Deve conter 11 dígitos.\n")
-
-        # Senha
-        while True:
-            senha = input("Senha: \t\t\t" + Style.RESET_ALL).strip()
-            if senha == "0":
-                tela_boas_vindas()
-            if len(senha) >= 6:
-                break
-            print(Fore.RED + "\n❌ Senha muito curta. Tente novamente.\n")
-
-        # Confirmação
-        while True:
-            confirma = input("Confirmar Senha: \t" + Style.RESET_ALL).strip()
-            if confirma == "0":
-                tela_boas_vindas()
-            if senha == confirma:
-                break
-            print(Fore.RED + "\n❌ As senhas não coincidem. Tente novamente.\n")
-
-        limpar_tela()
-        print(Fore.GREEN + f"\n✅ Cadastro realizado com sucesso para {nome}!\n")
-        input(Fore.CYAN + "Pressione [Enter] para continuar...")
-        
-        #registra o usuário no banco de dados
-        register_user(nome, email, senha, cpf)
-
-=======
         titulo_ascii = Fore.GREEN + Style.BRIGHT + r"""
  _   _       _     _ _   _____                       │   _____           _           _       
 | | | |     | |   (_) | |  __ \                      │  /  __ \         | |         | |      
@@ -179,32 +106,16 @@ def cadastro():
         limpar_tela()
         #registra o usuário no banco de dados
         register_user(nome, email, senha, cpf)
->>>>>>> feature/pedro
         #voltar para a tela de boas vindas
         tela_boas_vindas()
         break
 
-<<<<<<< HEAD
-
 def register_user(nome, email, senha, cpf):
-    #Registra um novo usuário no banco de dados
-    #abre o banco de dados
+    # Criptografa a senha antes de salvar
+    senha_criptografada = cifra_hill_criptografar(senha, CHAVE_HILL)
 
     db = Database()
-
-    # Insere o novo usuário
     db.execute("INSERT INTO tb_client (cli_name, cli_email, cli_password, cli_cpf) VALUES (%s, %s, %s, %s)",
-            (nome, email, senha, cpf))
-   
-    
-=======
-def register_user(nome, email, senha, cpf):
-    #Registra um novo usuário no banco de dados
-    #abre o banco de dados
-    db = Database()
-    # Insere o novo usuário
-    db.execute("INSERT INTO tb_client (cli_name, cli_email, cli_password, cli_cpf) VALUES (%s, %s, %s, %s)",
-            (nome, email, senha, cpf))
+               (nome, email, senha_criptografada, cpf))
     print(Fore.GREEN + f"\nCadastro realizado com sucesso para {nome}!\n")
     input(Fore.CYAN + "Pressione [Enter] para continuar...")
->>>>>>> feature/pedro

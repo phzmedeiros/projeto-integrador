@@ -20,10 +20,10 @@ def titulo_ascii():
 \_| |_/_|___/\__\___/|_|  |_|\___\___/ 
 """
 
-def exibir_calendario(ano, mes, dias_registrados):
-    cal = calendar.TextCalendar()
-    calendario_original = cal.formatmonth(ano, mes)
-    linhas = calendario_original.split("\n")
+def exibir_calendario(ano, mes, dias_registrados): # Função para exibir o calendário
+    cal = calendar.TextCalendar() # Cria um calendário
+    calendario_original = cal.formatmonth(ano, mes) # Formata o mês
+    linhas = calendario_original.split("\n") # Divide o calendário em linhas
     calendario_colorido = []
 
     for linha in linhas:
@@ -39,7 +39,7 @@ def exibir_calendario(ano, mes, dias_registrados):
         calendario_colorido.append(nova_linha.rstrip())
     return "\n".join(calendario_colorido)
 
-def ver_historico():
+def ver_historico(): # Função para ver o histórico
     ano = datetime.now().year
     mes = datetime.now().month
 
@@ -52,6 +52,7 @@ def ver_historico():
         db.close()
         dias_registrados = {d[0].day for d in result if d[0].month == mes and d[0].year == ano}
 
+        # menu de navegação de histórico por datas
         print(exibir_calendario(ano, mes, dias_registrados))
         print(Fore.CYAN + """
 ┌───────────────────────────────────────────────┐
@@ -80,20 +81,23 @@ def ver_historico():
                 print(Fore.RED + "❌ Dia inválido.")
                 input("Pressione Enter para continuar...")
                 continue
-
+            
+            # busca o registro no banco de dados
             data = datetime(ano, mes, int(dia)).date()
             db = Database()
             registro = db.fetchone("SELECT water, energy, organic_waste, recyclable_waste, transport FROM tb_register WHERE user_id = %s AND date = %s", (usuario_logado["id"], data))
             db.close()
 
-            if not registro:
+            if not registro: # se não houver registro, avisa o usuário
                 print(Fore.RED + "\n❌ Nenhum registro encontrado neste dia.")
                 input("Pressione Enter para continuar...")
                 continue
 
+            # calcula a pontuação média
             agua, energia, lixo_org, lixo_rec, transporte = registro
             media = int((pontuar_agua(agua) + pontuar_energia(energia) + pontuar_lixo(lixo_org, lixo_rec) + pontuar_transporte(transporte)) / 4)
 
+            # exibe os dados do registro
             limpar_tela()
             print(Fore.CYAN + Style.BRIGHT + f"\nRegistro do dia {data.strftime('%d/%m/%Y')}")
             print(Fore.WHITE + f"- Água: {agua:.1f} L")
@@ -103,6 +107,7 @@ def ver_historico():
             print(f"- Transporte: {transporte.title()}")
             print(Fore.GREEN + Style.BRIGHT + f"\nPontuação média: {media}/100\n")
 
+            # opcões de edição e exclusão
             print(Fore.YELLOW + """
 [1] Editar Registro
 [2] Excluir Registro
@@ -128,22 +133,26 @@ def ver_historico():
 # Funções de pontuação importadas aqui para manter compatibilidade
 def pontuar_agua(valor):
     if valor <= 100: return 100
-    if valor <= 150: return 70
-    if valor <= 200: return 50
-    return 20
+    if valor <= 150: return 80
+    if valor <= 200: return 60
+    if valor <= 250: return 40
+    if valor <= 300: return 20
+    if valor > 300: return 0
 
 def pontuar_energia(valor):
-    if valor <= 10: return 100
-    if valor <= 20: return 70
-    if valor <= 30: return 50
-    return 20
+    if valor <= 4: return 100
+    if valor <= 6: return 80
+    if valor <= 9: return 60
+    if valor <= 12: return 40
+    if valor <= 15: return 20   
+    if valor > 15: return 0
 
 def pontuar_lixo(org, rec):
     total = org + rec
     if total == 0: return 100
     proporcao = rec / total
     if proporcao >= 0.8: return 100
-    if proporcao >= 0.5: return 70
+    if proporcao >= 0.5: return 80
     if proporcao >= 0.3: return 50
     return 20
 

@@ -3,13 +3,14 @@ from colorama import Fore, Style, init
 from login import login
 from cadastro import cadastro
 
-init(autoreset=True)
+init(autoreset=True) 
 
 def limpar_tela():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def tela_boas_vindas():
     limpar_tela()
+    # título com arte ASCII
     titulo_ascii = Fore.GREEN + Style.BRIGHT + r"""                                                                                            
 ______                      _   _  _             _                             │
 | ___ \                    | | | |(_)           | |                            │      Aplicação para desenvolvimento sustentável.
@@ -25,6 +26,7 @@ ______                      _   _  _             _                             �
  \__,_| \___/  \_| |_/ \__,_||_.__/ |_| \__| \____/|_|   \___| \___||_| |_|    │      Pontifícia Universidade Católica de Campinas
                                                                                │
 """
+    # menu lateral
     menu_lateral = Fore.YELLOW + r"""
  ┌────────────────────────────────────────────────────────────────────────┐
  │ Para acessar ao sistema, selecione abaixo uma das opções disponíveis.  │
@@ -42,7 +44,7 @@ ______                      _   _  _             _                             �
 """
 
     print(titulo_ascii + menu_lateral + opcoes)
-    while True:
+    while True: # loop para verificar a opção escolhida
         opcao = input(Fore.WHITE + Style.BRIGHT + "Digite a opção escolhida: ")
         if opcao == "1":
             login()

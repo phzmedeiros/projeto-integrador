@@ -4,29 +4,34 @@ from colorama import Fore, Style, init
 from banco import Database
 from sessao import usuario_logado
 
-init(autoreset=True)
+init(autoreset=True) 
 
 def limpar_tela():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+# Funções de pontuação
 def pontuar_agua(valor):
     if valor <= 100: return 100
-    if valor <= 150: return 70
-    if valor <= 200: return 50
-    return 20
+    if valor <= 150: return 80
+    if valor <= 200: return 60
+    if valor <= 250: return 40
+    if valor <= 300: return 20
+    if valor > 300: return 0
 
 def pontuar_energia(valor):
-    if valor <= 10: return 100
-    if valor <= 20: return 70
-    if valor <= 30: return 50
-    return 20
+    if valor <= 4: return 100
+    if valor <= 6: return 80
+    if valor <= 9: return 60
+    if valor <= 12: return 40
+    if valor <= 15: return 20   
+    if valor > 15: return 0
 
 def pontuar_lixo(org, rec):
     total = org + rec
     if total == 0: return 100
     proporcao = rec / total
     if proporcao >= 0.8: return 100
-    if proporcao >= 0.5: return 70
+    if proporcao >= 0.5: return 80
     if proporcao >= 0.3: return 50
     return 20
 
@@ -43,6 +48,7 @@ def classificar(pontuacao):
     else:
         return "Ruim 🔥", Fore.RED
 
+#gerador de barra
 def gerar_barra(valor):
     blocos = int((valor / 100) * 50)
     return '▇' * blocos + f" {valor}"
@@ -59,6 +65,7 @@ ______     _       _             _
 """
     print(titulo_ascii)
 
+    # opções de data do relatório
     print(Fore.YELLOW + Style.BRIGHT + "Deseja ver o relatório de qual dia?\n")
     print(Fore.CYAN + """
 ┌─────────────────────────────┐
@@ -82,6 +89,7 @@ ______     _       _             _
         print(Fore.RED + "Opção inválida.")
         return
 
+    # Verifica se o usuário tem registro para a data escolhida
     db = Database()
     resultado = db.fetchone("SELECT water, energy, organic_waste, recyclable_waste, transport FROM tb_register WHERE user_id = %s AND date = %s", (usuario_logado["id"], data))
     db.close()
@@ -91,6 +99,7 @@ ______     _       _             _
         input("Pressione Enter para continuar...")
         return
 
+    # Calcula a pontuação média
     water, energy, lixo_org, lixo_rec, transporte = resultado
     p1 = pontuar_agua(water)
     p2 = pontuar_energia(energy)
@@ -101,6 +110,7 @@ ______     _       _             _
     limpar_tela()
     print(Fore.YELLOW + Style.BRIGHT + f"\nPontuação do dia {data.strftime('%d/%m/%Y')}:")
 
+    # Exibe os dados do registro
     print(Fore.MAGENTA + f"\nResumo do dia:")
     print(Fore.WHITE + f"- Água: {water:.1f} L")
     print(f"- Energia: {energy:.1f} kWh")
@@ -118,6 +128,7 @@ ______     _       _             _
     print(cor + Style.BRIGHT + f"\nPontuação geral: {media}/100")
     print(cor + Style.BRIGHT + f"Classificação: {classificacao}\n")
 
+    # Mensagem do urso polar com base na média
     if media >= 80:
         mensagem = "Parabéns! Seu dia foi incrível para o planeta! Continue assim! 🌎"
     elif media >= 50:

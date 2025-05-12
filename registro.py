@@ -114,6 +114,38 @@ def cadastrar_registro(dia, mes, ano):
  [5] Carro Elétrico 🚗⚡            
 
 """)
+
+    print(Fore.CYAN + "┌───────────────────────────────────────────────────────────────┐")
+
+data = validar_data()
+agua = validar_numero("💧 Água consumida (litros): ")
+energia = validar_numero("⚡ Energia consumida (kWh): ")
+residuos_nao_reciclaveis = validar_numero("🗑️ Resíduos não recicláveis (kg): ")
+residuos_reciclados = validar_numero("♻️ Resíduos reciclados (%): ")
+    
+print(Fore.YELLOW + "\n🚗 Escolha os meios de transporte usados no dia:")
+print(Fore.WHITE + "+------------------------------------+")
+print(Fore.WHITE + "|  1 - Bicicleta 🚴                  |")
+print(Fore.WHITE + "|  2 - Caminhada 🚶                  |")
+print(Fore.WHITE + "|  3 - Transporte Público 🚌         |")
+print(Fore.WHITE + "|  4 - Carro Elétrico ⚡🚗          |")
+print(Fore.WHITE + "|  5 - Carona Compartilhada 🚘       |")
+print(Fore.WHITE + "|  6 - Carro a Combustível Fóssil 🚗 |")
+print(Fore.WHITE + "|  7 - Caminhão/Avião ✈️🚛           |")
+print(Fore.WHITE + "+------------------------------------+")
+
+transporte_lista = validar_transporte()
+distancia = validar_numero ("📏 Distância total percorrida (km): ")
+impacto_transporte = calcular_impacto(transporte_lista, distancia)
+categoria_transporte = classificar_transporte(transporte_lista)
+
+def classificar_sustentabilidade(valor, limite_baixo, limite_medio):
+        if valor <= limite_baixo:
+            return "Alta Sustentabilidade"
+        elif valor <= limite_medio:
+            return "Média Sustentabilidade"
+        else:
+            return "Baixa Sustentabilidade"
         
         opcao_trans = input(Fore.WHITE + Style.BRIGHT + "Escolha uma opção: ")
 
@@ -158,3 +190,5 @@ def cadastrar_registro(dia, mes, ano):
     menu_inicial()
 
 
+if __name__ == "__main__":
+    registrar_dados()

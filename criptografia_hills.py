@@ -1,8 +1,8 @@
 import numpy as np
 from sympy import Matrix
 
-# Matriz de chave 
-CHAVE = [[6,  24, 1 ], 
+# Matriz de chave para a Cifra de Hill
+CHAVE_HILL = [[6,  24, 1 ], 
               [13, 16, 10],
               [20, 17, 15]]
 
@@ -18,8 +18,8 @@ def index_to_char(index):
     return ALFABETO[index % len(ALFABETO)]
 
 
-# Função para criptografar 
-def criptografar(texto, chave):
+# Função para criptografar usando a Cifra de Hill
+def cifra_hill_criptografar(texto, chave):
     while len(texto) % len(chave) != 0:  # Preenche com o primeiro caractere do alfabeto para completar o bloco
         texto += ALFABETO[0]
 
@@ -27,26 +27,24 @@ def criptografar(texto, chave):
     matriz_texto = np.array(matriz_texto).reshape(-1, len(chave))
 
     matriz_chave = np.array(chave)
+    criptografado = (np.dot(matriz_texto, matriz_chave) % len(ALFABETO)).flatten()
 
-    criptografado = (np.dot(matriz_texto, matriz_chave)).flatten()
-
-    
-    return criptografado
+    return ''.join(index_to_char(int(num)) for num in criptografado)
 
 
-# Função para descriptografar 
-def descriptografar(matriz, chave):
-    #multiplicação da matriz criptografada pela inversa da matriz chave
-    matriz = np.array(matriz).reshape(-1, len(chave))
-
+# Função para descriptografar usando a Cifra de Hill
+def cifra_hill_descriptografar(texto, chave):
+    matriz_texto = [char_to_index(char) for char in texto]
+    matriz_texto = np.array(matriz_texto).reshape(-1, len(chave))
 
     # Calcular a inversa da matriz chave
     matriz_chave = np.array(chave)
     matriz_chave = Matrix(matriz_chave)
-    inversa_chave = matriz_chave.inv()
-
+    inversa_chave = matriz_chave.inv_mod(len(ALFABETO))
+    inversa_chave = np.array(inversa_chave).astype(int)
+    inversa_chave = inversa_chave % len(ALFABETO)
     # Descriptografar
-    descriptografado = (np.dot(matriz, inversa_chave)).flatten()
+    descriptografado = (np.dot(matriz_texto, inversa_chave) % len(ALFABETO)).flatten()
     # Remover o preenchimento
     for i in range(len(descriptografado)):
         if descriptografado[i] == char_to_index(ALFABETO[0]):
@@ -56,15 +54,15 @@ def descriptografar(matriz, chave):
     return ''.join(index_to_char(int(num)) for num in descriptografado)
     
 
-#testando 
+#testando a cifra de Hill
 if __name__ == "__main__":
     texto = "73537 cr1pt0gr@f4d0"
     print("Texto original:", texto)
     
     # Criptografar
-    criptografado = criptografar(texto, CHAVE)
+    criptografado = cifra_hill_criptografar(texto, CHAVE_HILL)
     print("Texto criptografado:", criptografado)
     
     # Descriptografar
-    descriptografado = descriptografar(criptografado, CHAVE)
+    descriptografado = cifra_hill_descriptografar(criptografado, CHAVE_HILL)
     print("Texto descriptografado:", descriptografado)

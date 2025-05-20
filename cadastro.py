@@ -4,7 +4,7 @@ from colorama import init, Fore, Style
 
 
 from banco import Database
-from criptografia import cifra_hill_criptografar, cifra_hill_descriptografar, CHAVE_HILL
+from criptografia_hills import cifra_hill_criptografar, CHAVE_HILL
 init(autoreset=True)  # Iniciar colorama
 
 def limpar_tela():

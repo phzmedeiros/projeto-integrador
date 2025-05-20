@@ -2,11 +2,14 @@ import numpy as np
 from sympy import Matrix
 
 # Matriz de chave para a Cifra de Hill
-CHAVE_HILL = [[6,  24, 1 ], 
-              [13, 16, 10],
-              [20, 17, 15]]
+CHAVE_HILL = [
+    [2, 4, 5],
+    [9, 2, 1],
+    [3, 17, 7]
+]
 
-# Alfabeto personalizado com letras, números e caracteres especiais
+# Alfabeto personalizado com letras, números e caracteres especiais àáâãéèêíìîôõóòçúùû
+#modulo 94
 ALFABETO = "🐻ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>?/`~ "
 
 # Função para obter o índice de um caractere no alfabeto
@@ -43,6 +46,14 @@ def cifra_hill_descriptografar(texto, chave):
     inversa_chave = matriz_chave.inv_mod(len(ALFABETO))
     inversa_chave = np.array(inversa_chave).astype(int)
     inversa_chave = inversa_chave % len(ALFABETO)
+
+    
+    inversa_chave_nao_mod = matriz_chave.inv()
+
+    print("matriz chave vezes a inversa",np.dot(matriz_chave, inversa_chave_nao_mod))
+   
+    print("Inversa não mod:", inversa_chave_nao_mod)
+
     # Descriptografar
     descriptografado = (np.dot(matriz_texto, inversa_chave) % len(ALFABETO)).flatten()
     # Remover o preenchimento

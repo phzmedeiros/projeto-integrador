@@ -1,7 +1,7 @@
 from banco import Database
 from colorama import Fore, Style, init
 from sessao import usuario_logado
-from criptografia import cifra_hill_criptografar, cifra_hill_descriptografar, CHAVE_HILL
+from criptografia_hills import cifra_hill_descriptografar, CHAVE_HILL
 import os
 init(autoreset=True)
 
@@ -54,14 +54,12 @@ def check_login(email, senha):
     db = Database()
     user = db.fetchone("SELECT * FROM tb_client WHERE cli_email = %s", (email,))
     db.close()
-    print(user)
+    
 
     senha_criptografada = user[3]
     senha_descriptografada = cifra_hill_descriptografar(senha_criptografada, CHAVE_HILL)
     senha_descriptografada= senha_descriptografada.replace("🐻", "")
 
-    print(f"Senha criptografada: {senha_criptografada}")
-    print(f"Senha descriptografada: {senha_descriptografada}")
     if senha == senha_descriptografada:
         usuario_logado["id"] = user[0]
         usuario_logado["nome"] = user[1]

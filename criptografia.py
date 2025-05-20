@@ -3,8 +3,14 @@ from sympy import Matrix
 
 # Matriz de chave 
 CHAVE = [[6,  24, 1 ], 
-              [13, 16, 10],
-              [20, 17, 15]]
+        [13, 16, 10],
+        [20, 17, 15]]
+
+
+chave_invertida = np.linalg.inv(CHAVE)
+ 
+print(chave_invertida)
+
 
 # Alfabeto personalizado com letras, números e caracteres especiais
 ALFABETO = "🐻ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>?/`~ "

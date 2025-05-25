@@ -1,14 +1,14 @@
-import os
-from colorama import Fore, Style, init
-from banco import Database
-from sessao import usuario_logado
+import os # Importando a biblioteca os para manipulação do sistema operacional
+from colorama import Fore, Style, init # Importando a biblioteca colorama para colorir o terminal
+from banco import Database # Importando a classe Database para manipulação do banco de dados
+from sessao import usuario_logado  # Importando a função usuario_logado para verificar o usuário logado
 
-init(autoreset=True)
+init(autoreset=True) # Inicializando a biblioteca colorama para que as cores sejam resetadas automaticamente
 
-def limpar_tela():
-    os.system('cls' if os.name == 'nt' else 'clear')
+def limpar_tela(): # Função para limpar a tela do terminal
+    os.system('cls' if os.name == 'nt' else 'clear') # Verifica o sistema operacional e executa o comando apropriado
 
-def titulo_ascii():
+def titulo_ascii(): # Função para exibir o título do perfil
     return Fore.GREEN + Style.BRIGHT + r"""
  _   _       _     _ _   _____                       │  ______          __ _ _ 
 | | | |     | |   (_) | |  __ \                      │  | ___ \        / _(_) |
@@ -18,8 +18,8 @@ def titulo_ascii():
 \_| |_/\__,_|_.__/|_|\__|\____/_|  \___|\___|_| |_|  │  \_|  \___|_|  |_| |_|_|
 """
 
-def calcular_media_geral(registros):
-    if not registros:
+def calcular_media_geral(registros): # Função para calcular a média geral dos registros
+    if not registros: # Verifica se a lista de registros está vazia e se sim, retorna 0
         return 0
     total = 0
     for r in registros:

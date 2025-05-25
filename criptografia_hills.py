@@ -10,7 +10,7 @@ CHAVE_HILL = [
 
 # Alfabeto personalizado com letras, números e caracteres especiais àáâãéèêíìîôõóòçúùû
 #modulo 94
-ALFABETO = "🐻ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>?/`~ "
+ALFABETO = r"🐻ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>?/`~ "
 
 # Função para obter o índice de um caractere no alfabeto
 def char_to_index(char):
@@ -49,10 +49,15 @@ def cifra_hill_descriptografar(texto, chave):
 
     
     inversa_chave_nao_mod = matriz_chave.inv()
+    DEBUG = False  # ou True para ambiente de teste
 
-    print("matriz chave vezes a inversa",np.dot(matriz_chave, inversa_chave_nao_mod))
-   
-    print("Inversa não mod:", inversa_chave_nao_mod)
+    if DEBUG:
+        print("matriz chave vezes a inversa", np.dot(matriz_chave, inversa_chave_nao_mod))
+        print("Inversa não mod:", inversa_chave_nao_mod)
+
+        print("matriz chave vezes a inversa",np.dot(matriz_chave, inversa_chave_nao_mod))
+    
+        print("Inversa não mod:", inversa_chave_nao_mod)
 
     # Descriptografar
     descriptografado = (np.dot(matriz_texto, inversa_chave) % len(ALFABETO)).flatten()

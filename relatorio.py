@@ -70,7 +70,8 @@ ______     _       _             _
     print(Fore.CYAN + """
 ┌─────────────────────────────┐
 │ [1] Relatório de hoje       │
-│ [0] Relatório de outro dia  │
+│ [2] Relatório de outro dia  │
+│ [0] Voltar                  │
 └─────────────────────────────┘
 """)
     opcao = input(Fore.CYAN + "→ Escolha: ").strip()
@@ -85,6 +86,7 @@ ______     _       _             _
                 break
             except ValueError:
                 print(Fore.RED + "Data inválida. Tente novamente.")
+ 
     else:
         print(Fore.RED + "Opção inválida.")
         return

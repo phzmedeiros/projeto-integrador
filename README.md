@@ -1,8 +1,28 @@
 # 🌱 HabitGreen – Sistema de Monitoramento de Sustentabilidade Pessoal
 
-**HabitGreen** é um sistema acadêmico desenvolvido por estudantes de Engenharia de Software da **Pontifícia Universidade Católica de Campinas (PUC-Campinas)**, como parte do componente curricular **Projeto Integrador I – 1º Semestre**.
+**HabitGreen** é um sistema acadêmico completo desenvolvido por estudantes de Engenharia de Software da **Pontifícia Universidade Católica de Campinas (PUC-Campinas)**, no âmbito do componente curricular **Projeto Integrador I – 1º Semestre**.
 
-O sistema tem como objetivo **estimular hábitos sustentáveis no cotidiano das pessoas** por meio de um terminal interativo em Python, permitindo o registro diário do consumo de água, energia, resíduos e transporte. Ao final de cada registro, o sistema fornece análises visuais, pontuações e mensagens educativas de um mascote em ASCII – o **urso polar**, símbolo da conscientização ambiental.
+O sistema tem como propósito **conscientizar o indivíduo sobre seu impacto ambiental**, oferecendo uma experiência interativa por terminal (CLI), com registro diário de consumo, análise automatizada e recomendações educativas através de um mascote em ASCII — o **Urso Polar**, símbolo da sustentabilidade.
+
+---
+
+## 🎯 Objetivos do Projeto
+
+- Promover a mudança de hábitos sustentáveis por meio do autoconhecimento.
+- Aplicar conceitos acadêmicos de programação, banco de dados e álgebra linear.
+- Integrar disciplinas técnicas à prática com foco em usabilidade, segurança e modularização.
+- Estimular o trabalho em equipe, versionamento e documentação profissional.
+
+---
+
+## 🧰 Tecnologias Utilizadas
+
+- **Python 3**
+- **MySQL** – banco relacional
+- **Colorama** – estilização de terminal
+- **ASCII Art** – mascote educativo (Urso Polar)
+- **SymPy + NumPy** – criptografia (Cifra de Hill)
+- **Git + GitHub** – controle de versão e colaboração
 
 ---
 
@@ -19,96 +39,155 @@ Além de aplicar práticas de **controle de versão com Git**, **trabalho em equ
 
 ---
 
-## 🧠 Objetivos do Projeto
+## 🔍 Funcionalidades Principais
 
-- Desenvolver um sistema funcional e educativo executado em terminal (CLI)
-- Estimular a reflexão e melhoria dos hábitos de sustentabilidade
-- Aplicar boas práticas de programação e organização de código
-- Utilizar banco de dados real (MySQL) com estrutura relacional
-- Promover visualização clara com gráficos ASCII e feedback instantâneo
-
----
-
-## 🛠️ Tecnologias Utilizadas
-
-- **Python 3**
-- **MySQL**
-- **Colorama** – para cores no terminal
-- **Termgraph** – gráficos ASCII de barras
-- **Git e GitHub** – versionamento colaborativo
-- **ASCII Art** – mascote educativo (urso polar)
+- ✅ **Cadastro/Login com criptografia de senha**
+- 🧾 **Registro diário de:**
+  - Consumo de água (litros)
+  - Consumo de energia (kWh)
+  - Lixo orgânico e reciclável (kg)
+  - Tipo de transporte utilizado
+- 📊 **Pontuação de sustentabilidade**
+  - Classificação: Alta, Moderada ou Baixa
+- 📈 **Relatórios com gráficos ASCII**
+- 📚 **Histórico e evolução dos hábitos**
+- ✏️ **Edição e exclusão de registros**
+- 👤 **Perfil do usuário com médias gerais**
+- 🔐 **Criptografia de senhas com Cifra de Hill**
 
 ---
 
-## 👥 Equipe Acadêmica
+## 🗃️ Estrutura de Diretórios
 
-| Nome     | Função Principal                | Branch Git                         |
-|----------|----------------------------------|------------------------------------|
-| Alinne   | Desenvolvimento próprio.            | `feature/alinne`                |
-| Alycia   | Desenvolvimento próprio.       | `feature/alycia`                |
-| Pedro    | Desenvolvimento próprio.     | `feature/pedro`          |
-| Rafael   | Desenvolvimento próprio.    | `feature/rafael`         |
-
----
-
-## 📁 Estrutura do Projeto
-
-/habitgreen <br>
-│ <br>
-├── main.py <br>
-├── tela_boas_vindas.py <br>
-├── login.py <br>
-├── cadastro.py <br>
-├── menu.py <br>
-├── registro.py <br>
-├── relatorio.py <br>
-├── historico.py <br>
-├── editar_excluir.py <br>
-├── urso_polar_ascii.py <br>
-├── banco.py <br>
-├── utils.py <br>
-└── requirements.txt
+habitgreen/
+│
+├── main.py                 # Arquivo principal
+├── tela_boas_vindas.py     # Tela inicial
+├── cadastro.py             # Cadastro de usuários
+├── login.py                # Login e autenticação
+├── menu.py                 # Menu principal
+├── registro.py             # Registro de consumo
+├── relatorio.py            # Relatório diário
+├── historico.py            # Consulta de históricos
+├── editar_excluir.py       # Edição e exclusão
+├── perfil.py               # Perfil do usuário
+├── criptografia_hills.py   # Cifra de Hill
+├── banco.py                # Conexão com banco
+├── sessao.py               # Dados do usuário logado
+├── bd.sql                  # Script do banco de dados
+├── README.md               # Este documento
 
 ---
 
-## 🔄 Estrutura de Branches Git
+## 🧪 Estrutura de Testes
 
-main ← versão final e estável <br>
-└── develop ← integração de funcionalidades <br>
-----├── feature/alinne-ui <br>
-----├── feature/alycia-db <br>
-----├── feature/pedro-registros <br>
-----└── feature/rafael-relatorio
+Cada funcionalidade foi validada com:
+
+- Dados válidos e inválidos
+- Prints do terminal e banco de dados
+- Análise de retorno do sistema
+- Comentários sobre os resultados
+
+As funcionalidades testadas incluem: cadastro, login, registro de consumo, relatório, histórico, edição, exclusão, perfil e criptografia.
 
 ---
 
-## 🚀 Instruções de Execução
+## 🧠 Fundamentação Matemática
 
-1. Clone o repositório:
-git clone https://github.com/seu-usuario/habitgreen.git
+O projeto integra conceitos de **Álgebra Linear** por meio da **Cifra de Hill**, usada para criptografar e descriptografar senhas. A implementação considera:
 
-2. Instale os pacotes necessários:
+- Alfabeto personalizado (94 caracteres)
+- Matrizes invertíveis modulares
+- Padding para alinhamento dos blocos
+
+---
+
+## 🧵 Metodologia de Desenvolvimento
+
+O projeto seguiu os princípios da **Aprendizagem Baseada em Projetos (PBL)** com foco em:
+
+- Planejamento via Trello
+- Versionamento no GitHub
+- Programação em módulos
+- Testes contínuos e documentados
+
+---
+
+## 👥 Equipe de Desenvolvimento
+
+| Nome                                 |
+|--------------------------------------|
+| Alinne Monteiro de Melo              |
+| Alycia Santos Bond                   |
+| Pedro Henrique Medeiros dos Reis     |
+| Rafael Antônio Candian               |
+
+---
+
+## 🚀 Como Rodar o Projeto
+### Pré-requisitos
+
+1. **Python 3.11 ou superior**
+2. **MySQL 8.0+** instalado e configurado
+3. As seguintes bibliotecas Python:
+   - `colorama`
+   - `numpy`
+   - `sympy`
+   - `mysql-connector-python`
+
+### Instalação das bibliotecas:
+
+```bash
 pip install -r requirements.txt
+```
 
-3. Configure o banco de dados MySQL com o script SQL fornecido
+Ou manualmente:
 
-4. Execute o sistema:
+```bash
+pip install colorama numpy sympy mysql-connector-python
+```
+
+### Configuração do banco:
+
+- Abra o MySQL e execute o script `bd.sql` incluído no projeto para criar as tabelas necessárias.
+
+### Execução do projeto:
+
+```bash
 python main.py
+```
 
 ---
 
-## 🐻‍❄️ Sobre o Mascote
+## 🐻 Sobre o Mascote
 
-O **urso polar ASCII** representa o impacto das ações humanas nas mudanças climáticas. Ele interage com o usuário após cada análise, oferecendo mensagens motivacionais e dicas personalizadas baseadas na pontuação do dia.
+O **Urso Polar ASCII** é um personagem que orienta, motiva e comenta os resultados do dia, gerando um elo afetivo com o usuário e promovendo a educação ambiental de forma leve e lúdica.
 
 ---
 
-## 📚 Licença e Uso
+## 🧠 Segurança
 
-Este projeto é de caráter **estritamente acadêmico**. Todos os direitos reservados à equipe desenvolvedora. O uso e redistribuição devem respeitar o contexto educacional para o qual o projeto foi criado.
+- As senhas são criptografadas usando Cifra de Hill com alfabeto personalizado. 
+- O sistema não armazena senhas em texto puro.
+- A descriptografia é feita apenas no momento da verificação durante o login.
+
+---
+
+## 🧪 Testes Implementados
+
+- Todas as principais funcionalidades foram testadas com:
+- Entradas válidas e inválidas
+- Prints do terminal simulando o comportamento
+- Confirmação de retorno esperado
+- Prints do banco de dados
+
+---
+
+## ⚠️ Licença
+
+Este projeto é de uso **exclusivamente acadêmico** e não deve ser utilizado para fins comerciais. Todos os direitos reservados à equipe desenvolvedora e à PUC-Campinas.
 
 ---
 
 > Projeto Integrador I – 1º Semestre  
-> **PUC Campinas – Engenharia de Software**  
-> 2025
+> Engenharia de Software – PUC Campinas – 2025

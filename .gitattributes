@@ -1,2 +1,29 @@
-# Auto detect text files and perform LF normalization
+# Tratamento de final de linha para multiplataforma
 * text=auto
+
+# Arquivos Python
+*.py text eol=lf
+
+# Arquivos de configuração
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.sql text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.ini text eol=lf
+
+# Arquivos de documentação e relatórios
+*.docx binary
+*.pdf binary
+
+# Arquivos binários e imagens (preservar como estão)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+
+# Evita conflitos com logs ou arquivos temporários
+*.log text eol=lf
+*.tmp binary

@@ -1,18 +1,32 @@
-
+# Importa o módulo 'os', utilizado para executar comandos do sistema operacional, como limpar a tela do terminal.
 import os
+
+# Importa a classe 'datetime' do módulo 'datetime', usada para manipulação de datas e horas.
 from datetime import datetime
+
+# Importa funções e constantes da biblioteca colorama para colorir textos no terminal.
 from colorama import Fore, Style, init
+
+# Importa a classe Database do módulo banco, responsável pela conexão e operações com o banco de dados.
 from banco import Database
+
+# Importa o dicionário usuario_logado do módulo sessao, que armazena informações do usuário autenticado.
 from sessao import usuario_logado
 
+# Inicializa o colorama para que as cores sejam resetadas automaticamente após cada print.
 init(autoreset=True)
 
+# Função para limpar a tela do terminal, tornando a interface mais amigável.
 def limpar_tela():
+    # Se o sistema operacional for Windows, executa 'cls', senão executa 'clear' (Linux/Mac).
     os.system('cls' if os.name == 'nt' else 'clear')
 
+# Função principal para registrar o consumo diário do usuário.
+# Parâmetros opcionais: dia, mes, ano (permite registrar para datas específicas, se necessário).
 def registro(dia=None, mes=None, ano=None):
-    limpar_tela()
+    limpar_tela()  # Limpa a tela antes de exibir a interface de registro.
 
+    # Título em ASCII estilizado, exibido em verde e negrito, com instruções ao lado.
     titulo_ascii = Fore.GREEN + Style.BRIGHT + r"""
 ______ _____ _____ _____ _____ ___________ _____  ______ _____   │
 | ___ \  ___|  __ \_   _/  ___|_   _| ___ \  _  | |  _  \  ___|  │
@@ -29,8 +43,9 @@ ______ _____ _____ _____ _____ ___________ _____  ______ _____   │
 """
     print(titulo_ascii)
 
+    # Exibe instruções para o usuário escolher o tipo de registro (hoje ou outro dia).
     print(Fore.YELLOW + Style.BRIGHT + "Escolha o tipo de registro:")
-    hoje = datetime.now()
+    hoje = datetime.now()  # Obtém a data e hora atuais.
     print(Fore.CYAN + f"""
 ╔═════════════════════════════════════════════════════════════════╗
 ║                        Tipo de Registro                         ║
@@ -41,12 +56,14 @@ ______ _____ _____ _____ _____ ___________ _____  ______ _____   │
 ╚═════════════════════════════════════════════════════════════════╝
 """)
 
+    # Loop para garantir que o usuário escolha uma opção válida para o tipo de registro.
     while True:
         escolha = input(Fore.WHITE + Style.BRIGHT + "→ Escolha uma opção: ").strip()
         if escolha == "1":
-            data_registro = hoje.date()
+            data_registro = hoje.date()  # Usa a data de hoje.
             break
         elif escolha == "2":
+            # Permite ao usuário digitar uma data específica.
             while True:
                 data_str = input("Digite a data (dd/mm/aaaa): ").strip()
                 try:
@@ -56,8 +73,9 @@ ______ _____ _____ _____ _____ ___________ _____  ______ _____   │
                     print(Fore.RED + "Data inválida. Tente novamente.")
             break
         elif escolha == "0":
+            # Importação local para evitar importação circular.
             from menu import menu
-            menu()
+            menu()  # Retorna ao menu principal.
             return
         else:
             print(Fore.RED + "Opção inválida. Tente novamente.")
@@ -65,7 +83,7 @@ ______ _____ _____ _____ _____ ___________ _____  ______ _____   │
     limpar_tela()
     print(Fore.YELLOW + f"\nRegistro do dia {data_registro.strftime('%d/%m/%Y')}\n")
 
-    # Entrada de dados com tratamento individual para melhor didática
+    # Entrada de dados do consumo de água, com validação para garantir valor positivo.
     while True:
         try:
             agua = float(input("→ Consumo de água (litros): ").strip())
@@ -75,6 +93,7 @@ ______ _____ _____ _____ _____ ___________ _____  ______ _____   │
         except ValueError:
             print(Fore.RED + "Entrada inválida. Digite um número positivo para a água.")
 
+    # Entrada de dados do consumo de energia elétrica, com validação.
     while True:
         try:
             energia = float(input("→ Consumo de energia elétrica (kWh): ").strip())
@@ -84,6 +103,7 @@ ______ _____ _____ _____ _____ ___________ _____  ______ _____   │
         except ValueError:
             print(Fore.RED + "Entrada inválida. Digite um número positivo para a energia.")
 
+    # Entrada de dados do lixo orgânico, com validação.
     while True:
         try:
             lixo_organico = float(input("→ Quantidade de lixo orgânico (kg): ").strip())
@@ -93,6 +113,7 @@ ______ _____ _____ _____ _____ ___________ _____  ______ _____   │
         except ValueError:
             print(Fore.RED + "Entrada inválida. Digite um número positivo para o lixo orgânico.")
 
+    # Entrada de dados do lixo reciclável, com validação.
     while True:
         try:
             lixo_reciclavel = float(input("→ Quantidade de lixo reciclável (kg): ").strip())
@@ -102,6 +123,7 @@ ______ _____ _____ _____ _____ ___________ _____  ______ _____   │
         except ValueError:
             print(Fore.RED + "Entrada inválida. Digite um número positivo para o lixo reciclável.")
 
+    # Exibe as categorias de transporte disponíveis, com exemplos, em formato de tabela.
     print(Fore.YELLOW + """
 ╔════════════════════════════════════════════════════════════════╗
 ║          Categoria de Transporte Utilizado no Dia              ║
@@ -112,12 +134,14 @@ ______ _____ _____ _____ _____ ___________ _____  ______ _____   │
 ╚═════════════════╩══════════════════════════════════════════════╝
 """)
 
+    # Dicionário que mapeia a escolha do usuário para o texto correspondente da categoria.
     mapa_categorias = {
         "1": "sustentável",
         "2": "misto",
         "3": "poluente"
     }
 
+    # Loop para garantir que o usuário escolha uma categoria de transporte válida.
     while True:
         tipo_transporte = input("→ Escolha a categoria (1/2/3): ").strip()
         if tipo_transporte in mapa_categorias:
@@ -126,12 +150,15 @@ ______ _____ _____ _____ _____ ___________ _____  ______ _____   │
         else:
             print(Fore.RED + "Opção inválida. Digite 1, 2 ou 3.")
 
+    # Cria uma conexão com o banco de dados.
     db = Database()
+    # Executa o comando SQL para inserir o registro no banco.
     db.execute("""
         INSERT INTO tb_register (user_id, date, water, energy, organic_waste, recyclable_waste, transport)
         VALUES (%s, %s, %s, %s, %s, %s, %s)
     """, (usuario_logado["id"], data_registro, agua, energia, lixo_organico, lixo_reciclavel, transporte))
-    db.close()
+    db.close()  # Fecha a conexão com o banco.
 
+    # Exibe mensagem de sucesso ao usuário, confirmando o registro.
     print(Fore.GREEN + f"\nRegistro do dia {data_registro.strftime('%d/%m/%Y')} salvo com sucesso!")
-    input(Fore.YELLOW + "Pressione Enter para continuar...")
+    input(Fore.YELLOW + "Pressione Enter para continuar...")  # Aguarda o usuário antes de retornar.

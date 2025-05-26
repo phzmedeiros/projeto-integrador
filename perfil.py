@@ -1,14 +1,26 @@
+# Importa o módulo 'os', utilizado para executar comandos do sistema operacional, como limpar a tela do terminal.
 import os
+
+# Importa funções e constantes da biblioteca colorama para colorir textos no terminal.
 from colorama import Fore, Style, init
+
+# Importa a classe Database do módulo banco, responsável pela conexão e operações com o banco de dados.
 from banco import Database
+
+# Importa o dicionário usuario_logado do módulo sessao, que armazena informações do usuário autenticado.
 from sessao import usuario_logado
 
+# Inicializa o colorama para que as cores sejam resetadas automaticamente após cada print.
 init(autoreset=True)
 
+# Função para limpar a tela do terminal, tornando a interface mais amigável.
 def limpar_tela():
+    # Se o sistema operacional for Windows, executa 'cls', senão executa 'clear' (Linux/Mac).
     os.system('cls' if os.name == 'nt' else 'clear')
 
+# Função que retorna um texto ASCII estilizado para ser usado como título na tela de perfil.
 def titulo_ascii():
+    # Retorna uma string com arte ASCII, usando cor verde e estilo negrito.
     return Fore.GREEN + Style.BRIGHT + r"""
  _   _       _     _ _   _____                       │  ______          __ _ _ 
 | | | |     | |   (_) | |  __ \                      │  | ___ \        / _(_) |
@@ -18,7 +30,7 @@ def titulo_ascii():
 \_| |_/\__,_|_.__/|_|\__|\____/_|  \___|\___|_| |_|  │  \_|  \___|_|  |_| |_|_|
 """
 
-#funções para calcular médias
+# Funções para calcular médias
 def calcular_media_geral(registros):
     if not registros:
         return 0
@@ -149,3 +161,7 @@ def perfil_usuario(user_id):
         else:
             print(Fore.RED + "Opção inválida.")
             input("Pressione Enter para continuar...")
+
+# Fim do arquivo: este módulo implementa o perfil do usuário, permitindo visualizar médias de sustentabilidade,
+# alterar dados pessoais e receber feedback motivacional. O uso de cores, arte ASCII e validação de entrada
+# torna a experiência do usuário mais amigável e educativa.

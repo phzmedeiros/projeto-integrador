@@ -1,0 +1,64 @@
+# Bytecode do Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Arquivos de log
+*.log
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Arquivos de ambiente virtual
+.env
+.venv/
+venv/
+ENV/
+env.bak/
+env/
+
+# Banco de dados local ou dumps (caso não deseje versionar)
+*.sqlite3
+*.db
+*.sql~
+
+# Arquivos do VSCode
+.vscode/
+
+# Arquivos do PyCharm
+.idea/
+*.iml
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Arquivos gerados automaticamente
+*.pdf
+*.docx
+*.xlsx
+
+# Arquivos compactados ou backup
+*.zip
+*.rar
+*.tar.gz
+*.7z
+*.bak
+*.old
+
+# Configurações pessoais
+*.ini
+*.cfg
+
+# Requisitos opcionais de build
+build/
+dist/
+*.egg-info/
+
+# Arquivos de relatório gerados (opcional)
+Relatório*.pdf
+*.md.bak

@@ -52,18 +52,31 @@ def login():
 
 def check_login(email, senha):
     db = Database()
+
+    # Consulta o usuário pelo e-mail informado
     user = db.fetchone("SELECT * FROM tb_client WHERE cli_email = %s", (email,))
     db.close()
-    
 
+    # Verifica se o e-mail está cadastrado no sistema
+    if user is None:
+        return False  # Nenhum usuário encontrado com esse e-mail
+
+    # Recupera a senha criptografada do banco (posição 3 da tabela)
     senha_criptografada = user[3]
-    senha_descriptografada = cifra_hill_descriptografar(senha_criptografada, CHAVE_HILL)
-    senha_descriptografada= senha_descriptografada.replace("🐻", "")
 
+    # Descriptografa a senha com a Cifra de Hill
+    senha_descriptografada = cifra_hill_descriptografar(senha_criptografada, CHAVE_HILL)
+
+    # Remove qualquer caractere de padding (🐻) usado na criptografia
+    senha_descriptografada = senha_descriptografada.replace("🐻", "")
+
+    # Compara a senha digitada com a senha real (descriptografada)
     if senha == senha_descriptografada:
+        # Armazena as informações do usuário logado na sessão
         usuario_logado["id"] = user[0]
         usuario_logado["nome"] = user[1]
         usuario_logado["email"] = user[2]
         return True
+
+    # Senha incorreta
     return False
-#hgdfjdfjdyhxydg

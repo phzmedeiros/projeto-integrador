@@ -75,7 +75,6 @@ def pontuar_transporte(tipo):
     if tipo == "misto": return 60
     return 20
 
-
 def barra_ascii(valor):
     blocos = int((valor / 100) * 40)
     return "▇" * blocos + f" {valor}/100"

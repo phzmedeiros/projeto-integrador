@@ -59,22 +59,22 @@ Além de aplicar práticas de **controle de versão com Git**, **trabalho em equ
 
 ## 🗃️ Estrutura de Diretórios
 
-habitgreen/
-│
-├── main.py                 # Arquivo principal
-├── tela_boas_vindas.py     # Tela inicial
-├── cadastro.py             # Cadastro de usuários
-├── login.py                # Login e autenticação
-├── menu.py                 # Menu principal
-├── registro.py             # Registro de consumo
-├── relatorio.py            # Relatório diário
-├── historico.py            # Consulta de históricos
-├── editar_excluir.py       # Edição e exclusão
-├── perfil.py               # Perfil do usuário
-├── criptografia_hills.py   # Cifra de Hill
-├── banco.py                # Conexão com banco
-├── sessao.py               # Dados do usuário logado
-├── bd.sql                  # Script do banco de dados
+habitgreen/<br>
+│<br>
+├── main.py                 # Arquivo principal<br>
+├── tela_boas_vindas.py     # Tela inicial<br>
+├── cadastro.py             # Cadastro de usuários<br>
+├── login.py                # Login e autenticação<br>
+├── menu.py                 # Menu principal<br>
+├── registro.py             # Registro de consumo<br>
+├── relatorio.py            # Relatório diário<br>
+├── historico.py            # Consulta de históricos<br>
+├── editar_excluir.py       # Edição e exclusão<br>
+├── perfil.py               # Perfil do usuário<br>
+├── criptografia_hills.py   # Cifra de Hill<br>
+├── banco.py                # Conexão com banco<br>
+├── sessao.py               # Dados do usuário logado<br>
+├── bd.sql                  # Script do banco de dados<br>
 ├── README.md               # Este documento
 
 ---

@@ -47,12 +47,20 @@ def editar_registro(data): # função para editar o registro
 
     def novo_transporte(atual): # Função para editar o tipo de transporte
         print(Fore.YELLOW + "\nTipo de Transporte:")
-        print("[1] Sustentável\n[2] Misto\n[3] Poluente")
+        print(Fore.YELLOW + """
+╔════════════════════════════════════════════════════════════════╗
+║          Categoria de Transporte Utilizado no Dia              ║
+╠═════════════════╦══════════════════════════════════════════════╣
+║ [1] Sustentável ║ A pé, bicicleta, skate, patinete elétrico    ║
+║ [2] Misto       ║ Carro elétrico, transporte público, carona   ║
+║ [3] Poluente    ║ Moto, carro a combustão, avião               ║
+╚═════════════════╩══════════════════════════════════════════════╝
+""")
         escolha = input("Novo tipo (ou Enter para manter): ").strip()
-        if escolha == "1": return "sustentável"
-        elif escolha == "2": return "misto"
-        elif escolha == "3": return "poluente"
-        else: return atual
+        if escolha == "1": return "sustentável" #se o usuário escolher opção 1, retorna sustentável
+        elif escolha == "2": return "misto" # se o usuário escolher opção 2, retorna misto
+        elif escolha == "3": return "poluente" # se o usuário escolher opção 3, retorna poluente
+        else: return atual # se o usuário pressionar Enter, mantém o valor atual
 
     # novos valores
     water = novo_valor("→ Água (L)", water)
@@ -77,10 +85,11 @@ def excluir_registro(data): # função para excluir um registro
     print(titulo_ascii())
     print(Fore.YELLOW + f"\nExclusão de Registro do dia {data.strftime('%d/%m/%Y')}\n")
 
-    db = Database()
+    db = Database() # Conecta ao banco de dados
+    # Verifica se o registro existe
     registro = db.fetchone("SELECT id FROM tb_register WHERE user_id = %s AND date = %s", (usuario_logado["id"], data))
 
-    if not registro:
+    if not registro: # Se não encontrar o registro, exibe mensagem de erro
         print(Fore.RED + "Registro não encontrado.")
         db.close()
         input("Pressione Enter para voltar...")

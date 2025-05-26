@@ -62,3 +62,13 @@ class Database:
         """
         # Executa o comando SELECT com os valores fornecidos (ou tupla vazia).
         self.cursor.execute(query, values or ())
+
+    # Método para fechar a conexão com o banco de dados.
+    # Muito importante para liberar os recursos da memória e encerrar conexões abertas.
+    def close(self):
+        """
+        Fecha a conexão com o banco de dados.
+        Deve ser chamado sempre que terminar de usar a conexão para evitar problemas de desempenho ou bloqueios no MySQL.
+        """
+        self.cursor.close()  # Encerra o cursor
+        self.conn.close()    # Encerra a conexão com o banco

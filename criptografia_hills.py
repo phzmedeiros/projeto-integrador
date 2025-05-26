@@ -12,6 +12,7 @@ CHAVE_HILL = [
 #modulo 94
 ALFABETO = "🐻ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>?/`~ "
 
+
 # Função para obter o índice de um caractere no alfabeto
 def char_to_index(char):
     return ALFABETO.index(char)

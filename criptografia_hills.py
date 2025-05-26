@@ -8,7 +8,7 @@ CHAVE_HILL = [
     [3, 17, 7]
 ]
 
-# Alfabeto personalizado com letras, números e caracteres especiais àáâãéèêíìîôõóòçúùû
+# Alfabeto personalizado com letras, números e caracteres especiais
 #modulo 94
 ALFABETO = r"🐻ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>?/`~ "
 

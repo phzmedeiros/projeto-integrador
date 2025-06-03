@@ -66,9 +66,12 @@ class Database:
     # Método para fechar a conexão com o banco de dados.
     # Muito importante para liberar os recursos da memória e encerrar conexões abertas.
     def close(self):
-        """
-        Fecha a conexão com o banco de dados.
-        Deve ser chamado sempre que terminar de usar a conexão para evitar problemas de desempenho ou bloqueios no MySQL.
-        """
-        self.cursor.close()  # Encerra o cursor
-        self.conn.close()    # Encerra a conexão com o banco
+        try:
+            # Garante que qualquer resultado pendente seja lido antes de fechar
+            while self.cursor.nextset():
+                pass
+        except:
+            pass
+        self.cursor.close()
+        self.conn.close()
+    # Encerra a conexão com o banco

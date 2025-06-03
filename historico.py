@@ -78,10 +78,10 @@ def ver_historico():
         db = Database()  # Cria uma instância do banco de dados.
         # Busca todas as datas de registros do usuário logado.
         result = db.fetchall("SELECT date FROM tb_register WHERE user_id = %s", (usuario_logado["id"],))
-        db.close()  # Fecha a conexão com o banco.
-        # Cria um conjunto com os dias do mês atual que possuem registros.
-        dias_registrados = {d[0].day for d in result if d[0].month == mes and d[0].year == ano}
-
+        if result:
+            dias_registrados = {d[0].day for d in result if d[0] and d[0].month == mes and d[0].year == ano}
+        else:
+            dias_registrados = set()
         # Exibe o calendário do mês, destacando os dias com registros.
         print(exibir_calendario(ano, mes, dias_registrados))
         # Exibe o menu de navegação do histórico.
